@@ -2,7 +2,7 @@ import User from "../models/User";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET; // Will set JWT secret a little later
+const JWT_SECRET = process.env.JWT_SECRET; 
 
 // Register a new user
 export const Register = async (req, res) => {
