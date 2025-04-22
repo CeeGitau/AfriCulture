@@ -3,14 +3,14 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: linear-gradient(rgba(42, 39, 39, 0.173), rgba(132, 129, 129, 0.7)),
-    url("../images/CultureHomeImage.jpg");
-    background-repeat: no-repeat;
-    background-size: 100%;
 }
 
 .landing-container {
     height: calc(100vh - 70px); 
+    background-image: linear-gradient(rgba(42, 39, 39, 0.173), rgba(132, 129, 129, 0.7)),
+    url("../images/CultureHomeImage.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
