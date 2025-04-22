@@ -50,7 +50,8 @@ const Login = async (req, res) => {
 
 const Auth = async (req, res) => {
     try {
-        const user = req.user;
+        const user = await User.findById(req.user.id).select('-password'); // fetch full user and exclude password
+
         if (!user) return res.status(401).json({ message: "Unauthorized" });
 
         return res.status(200).json({ success: true, user });
