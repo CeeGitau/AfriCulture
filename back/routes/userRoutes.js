@@ -1,6 +1,6 @@
-import express from 'express';
-import { Register, Login, Auth } from '../controllers/userController';
-import VerifyToken from '../middleware/verifyToken';
+const express = require('express'); 
+const { Login, Register, Auth } = require('../controllers/userController.js');
+const VerifyToken = require('../middleware/verifyToken.js');
 
 const router = express.Router();
 
@@ -9,8 +9,6 @@ router.post('/register', Register);
 router.post('/login', Login);
 
 // Protected routes
-router.get("/auth", VerifyToken, (req, res) => {
-    return res.status(200).json({ success: true, user: req.user });
-});
+router.get("/auth", VerifyToken, Auth); 
 
-export default router;
+module.exports = router;

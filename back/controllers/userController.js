@@ -1,11 +1,10 @@
-import User from "../models/User";
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+const User = require('../models/User'); 
+const bcrypt = require('bcryptjs'); 
+const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = process.env.JWT_SECRET; 
 
-// Register a new user
-export const Register = async (req, res) => {
+const Register = async (req, res) => {
     const { username, email, password } = req.body;
 
     try {
@@ -23,8 +22,7 @@ export const Register = async (req, res) => {
     }
 };
 
-// Login user
-export const Login = async (req, res) => {
+const Login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -50,9 +48,8 @@ export const Login = async (req, res) => {
     }
 };
 
-export const Auth = async (req, res) => {
+const Auth = async (req, res) => {
     try {
-        // req.user would have been populated by the middleware (e.g., jwt auth middleware)
         const user = req.user;
         if (!user) return res.status(401).json({ message: "Unauthorized" });
 
@@ -60,4 +57,10 @@ export const Auth = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ message: "Something went wrong", error });
     }
+};
+
+module.exports = {
+    Register,
+    Login,
+    Auth
 };

@@ -28,7 +28,7 @@ const Register = () => {
         setUser(data.user);
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.token); 
-        navigate("/dashboard");
+        navigate("/homepage");
       } else {
         alert(data.message || "Registration failed");
       }

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
     user: {
@@ -8,7 +8,13 @@ const postSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Musis & Dance', 'Clothing & Fashion', 'Food & Cuisine', 'Religious Practices & Beliefs', 'Languages & Culture', 'Festivals & Holidays', 'Literature & Poetry', 'Customs & Traditions', 'Sports & Games', 'Architecture & Design', 'Film & Theatre', 'Folk Tales & Legends', 'Etiquette & Social Norms'],
+        enum: [
+            'Musis & Dance', 'Clothing & Fashion', 'Food & Cuisine', 
+            'Religious Practices & Beliefs', 'Languages & Culture', 
+            'Festivals & Holidays', 'Literature & Poetry', 'Customs & Traditions', 
+            'Sports & Games', 'Architecture & Design', 'Film & Theatre', 
+            'Folk Tales & Legends', 'Etiquette & Social Norms'
+        ],
         required: true
     }, 
     title: {
@@ -21,4 +27,4 @@ const postSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-export default mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Post', postSchema);
