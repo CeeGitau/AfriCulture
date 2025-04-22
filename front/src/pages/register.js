@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../assets/css/register.css";
 
 const Register = () => {
@@ -44,6 +45,7 @@ const Register = () => {
       <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
       <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
       <button type="submit">Register</button>
+      <p>Already have an account? <Link to="/login">Login here</Link></p>
     </form>
   );
 };
