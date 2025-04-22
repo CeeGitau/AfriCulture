@@ -4,6 +4,7 @@ import Landing from "./pages/landing";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Homepage from "./pages/homepage";
+import About from "./pages/about";
 import Profile from "./pages/profile";
 import Logout from "./pages/logout";
 import UserContext from "./contexts/UserContext";
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
   { path: '/register', element: <Register /> },
   { path: '/login', element: <Login />},
   { path: '/homepage', element: <Homepage />},
+  { path: '/about', element: <About />},
   { path: '/profile', element: <Profile />},
   { path: '/logout', element: <Logout />},
 ]);
