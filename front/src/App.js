@@ -5,6 +5,7 @@ import Register from "./pages/register";
 import Login from "./pages/login";
 import Homepage from "./pages/homepage";
 import Profile from "./pages/profile";
+import Logout from "./pages/logout";
 import UserContext from "./contexts/UserContext";
 
 const router = createBrowserRouter([
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
   { path: '/login', element: <Login />},
   { path: '/homepage', element: <Homepage />},
   { path: '/profile', element: <Profile />},
+  { path: '/logout', element: <Logout />},
 ]);
 
 function App() {
