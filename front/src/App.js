@@ -4,6 +4,7 @@ import Landing from "./pages/landing";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import Homepage from "./pages/homepage";
+import Profile from "./pages/profile";
 import UserContext from "./contexts/UserContext";
 
 const router = createBrowserRouter([
@@ -11,6 +12,7 @@ const router = createBrowserRouter([
   { path: '/register', element: <Register /> },
   { path: '/login', element: <Login />},
   { path: '/homepage', element: <Homepage />},
+  { path: '/profile', element: <Profile />},
 ]);
 
 function App() {
