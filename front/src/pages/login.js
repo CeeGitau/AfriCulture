@@ -40,27 +40,29 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="login-form">
-            <h2>Login</h2>
-            <input 
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-            />
-            <input 
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-            />
-            <button type="submit">Login</button>
-            <p>Don't have an account? <Link to="/register">Register here</Link></p>
-        </form>
+        <div className="login-wrapper">
+            <form onSubmit={handleSubmit} className="login-form">
+                <h1>Login</h1>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                />
+                <button type="submit">Login</button>
+                <p>Don't have an account? <Link to="/register">Register here</Link></p>
+            </form>
+        </div>
     );
 };
 
