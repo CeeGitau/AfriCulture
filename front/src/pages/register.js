@@ -28,7 +28,7 @@ const Register = () => {
       if (res.ok) {
         setUser(data.user);
         localStorage.setItem("user", JSON.stringify(data.user));
-        localStorage.setItem("token", data.token); 
+        localStorage.setItem("token", data.token);
         navigate("/homepage");
       } else {
         alert(data.message || "Registration failed");
@@ -39,14 +39,16 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="register-form">
-      <h2>Register</h2>
-      <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
-      <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-      <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-      <button type="submit">Register</button>
-      <p>Already have an account? <Link to="/login">Login here</Link></p>
-    </form>
+    <div className="register-container">
+      <form onSubmit={handleSubmit} className="register-form">
+        <h1>Register</h1>
+        <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
+        <button type="submit">Register</button>
+        <p>Already have an account? <Link to="/login">Login here</Link></p>
+      </form>
+    </div>
   );
 };
 
