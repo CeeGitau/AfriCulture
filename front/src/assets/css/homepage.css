@@ -3,10 +3,29 @@
     text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("../images/CultureHomeImage.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+        url("../images/CultureHomeImage.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     min-height: 100vh;
+}
+
+.conversation-buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+}
+ 
+.post-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    text-align: center;
+    margin: 0 10px;
 }
 
 .homepage-heading {

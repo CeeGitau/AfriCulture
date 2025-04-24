@@ -24,6 +24,11 @@ const Homepage = () => {
         <div>
             <Navbar />
             <div className="homepage-container">
+                <div className="conversation-buttons">
+                    <Link to="/add-post" className="post-link">Add a post</Link>
+                    <Link to="/posts" className="post-link">View posts</Link>
+                </div>
+                
                 <h2 className="homepage-heading">Explore African Culture</h2>
                 <p className="homepage-subtext">Select a category to dive into its rich heritage:</p>
                 <ul className="categories-list">
