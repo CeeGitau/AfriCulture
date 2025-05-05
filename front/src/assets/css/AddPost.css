@@ -71,12 +71,20 @@
 
 .submit-button {
     background-color: #4caf50;
-    color: white;
+    color: #ffffff;
+}
+
+.submit-button:hover {
+    background-color: #45a049; 
 }
 
 .cancel-button {
     background-color: #f44336;
-    color: white;
+    color: #ffffff;
+}
+
+.cancel-button:hover {
+    background-color: #d32f2f; 
 }
 
 /* Responsive layout */
