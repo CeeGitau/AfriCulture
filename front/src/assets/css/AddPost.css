@@ -1,0 +1,78 @@
+.add-post-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.add-post-form {
+    background: rgba(255, 255, 255, 0.088);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.77);
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    max-width: 500px;
+    align-items: center;
+}
+
+.add-post-form select,
+.add-post-form input,
+.add-post-form textarea {
+    width: 100%;
+    max-width: 500px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.add-post-form textarea {
+    background-color: rgba(255, 255, 255, 0);
+    resize: none;
+    color: #ffffff;
+}
+
+.add-post-form select {
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+.add-post-form select option {
+    padding: 10px;
+}
+
+.add-post-form label {
+    width: 100%;
+    max-width: 500px;
+    margin: 10px 0;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+.submit-button,
+.cancel-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.cancel-button {
+    background-color: #f44336;
+    color: white;
+}
