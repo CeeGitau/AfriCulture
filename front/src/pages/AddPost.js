@@ -144,7 +144,7 @@ const AddPost = () => {
 
                     <div className="button-container">
                         <button type="submit" className="submit-button">Post</button>
-                        <button type="submit" className="cancel-button">Cancel</button>
+                        <button type="button" className="cancel-button">Cancel</button>
                     </div>
                 </form>
             </div>
