@@ -53,6 +53,18 @@
     margin: 10px 0;
 }
 
+.image-preview {
+    margin-top: 10px;
+}
+
+.preview-img {
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
 .button-container {
     display: flex;
     justify-content: space-between;
