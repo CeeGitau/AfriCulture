@@ -14,7 +14,7 @@ const About = () => {
                     </p>
 
                     <p className="about-description">
-                        In an era of globalization, it's easy for indigenous traditions to fade. AfriCulture exists to ensure that the stories, practices, and identities that shape African communities are preserved and passed down to future generations — not just as memories, but as part of our daily conversations.
+                        In an era of globalization, it's easy for indigenous traditions to fade. AfriCulture exists to ensure that the stories, practices, and identities that shape African communities are preserved and passed down to future generations, not just as memories, but as part of our daily conversations.
                     </p>
 
                     <p className="about-description">
@@ -22,7 +22,7 @@ const About = () => {
                     </p>
 
                     <p className="about-description">
-                        Join us in preserving the past, embracing the present, and inspiring the future — one post at a time.
+                        Join us in preserving the past, embracing the present, and inspiring the future, one post at a time.
                     </p>
                 </div>
             </div>
