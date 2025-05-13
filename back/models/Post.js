@@ -23,7 +23,11 @@ const postSchema = new mongoose.Schema(
         "Architecture & Design",
         "Films & Theatre",
         "Etiquette & Social Norms"
-      ],      
+      ],
+      required: true,
+    },
+    community: {
+      type: String,
       required: true,
     },
     title: {

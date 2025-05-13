@@ -25,6 +25,19 @@ const CreatePost = async (req, res) => {
     }
 };
 
+const getPostsByCategory = async (req, res) => {
+    const { category } = req.params;
+
+    try {
+        const posts = await Post.find({ category });
+        res.status(200).json(posts);
+    } catch (err) {
+        console.error("Error fetching posts by category:", err);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
 module.exports = {
-    CreatePost
+    CreatePost,
+    getPostsByCategory
 };
