@@ -34,7 +34,7 @@
 .add-post-form textarea {
     background-color: rgba(255, 255, 255, 0);
     resize: none;
-    color: #ffffff;
+    color: #000000;
 }
 
 .add-post-form select {

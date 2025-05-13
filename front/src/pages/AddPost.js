@@ -11,6 +11,7 @@ const AddPost = () => {
         category: "",
         title: "",
         content: "",
+        community: "",
     });
 
     const { user } = useContext(UserContext);
@@ -30,6 +31,49 @@ const AddPost = () => {
         "Architecture & Design",
         "Films & Theatre",
         "Etiquette & Social Norms",
+    ];
+
+    const communities = [
+        "Kikuyu",
+        "Luhya",
+        "Kalenjin",
+        "Luo",
+        "Kamba",
+        "Somali",
+        "Kisii",
+        "Mijikenda",
+        "Maasai",
+        "Taita",
+        "Embu",
+        "Meru",
+        "Turkana",
+        "Teso",
+        "Ilchamus",
+        "Samburu",
+        "Rendille",
+        "Borana",
+        "Gabra",
+        "Pokot",
+        "Njemps",
+        "Galla",
+        "Ndorobo",
+        "Suba",
+        "Ogiek",
+        "El Molo",
+        "Kuria",
+        "Malakote",
+        "Swahili",
+        "Arabs",
+        "Waat",
+        "Nubians",
+        "Boni",
+        "Giriama",
+        "Digo",
+        "Taveta",
+        "Bajuni",
+        "Orma",
+        "Burji",
+        "Sakuye",
     ];
 
     const convertFileToBase64 = (file) => {
@@ -113,6 +157,14 @@ const AddPost = () => {
                         <option value="" disabled>Select a category</option>
                         {categories.map((cat, index) => (
                             <option key={index} value={cat}>{cat}</option>
+                        ))}
+                    </select>
+
+                    <label>Select a Community</label>
+                    <select name="community" value={values.community} onChange={handleChange} required>
+                        <option value="" disabled>Select a community</option>
+                        {communities.map((comm, index) => (
+                            <option key={index} value={comm}>{comm}</option>
                         ))}
                     </select>
 
