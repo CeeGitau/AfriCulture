@@ -2,10 +2,10 @@ const Post = require('../models/Post');
 
 const CreatePost = async (req, res) => {
     try {
-        const { title, content, category, image, audio } = req.body;
+        const { title, content, category, image, audio, community } = req.body;
 
-        if (!title || !content || !category) {
-            return res.status(400).json({ message: "Title, content, and category are required"});
+        if (!title || !content || !category || !community) {
+            return res.status(400).json({ message: "All fields except audio are required"});
         }
 
         const newPost = new Post({
@@ -13,6 +13,7 @@ const CreatePost = async (req, res) => {
             title,
             content,
             category,
+            community,
             image,
             audio
         });
