@@ -33,13 +33,15 @@ const CategoryPosts = () => {
         <div>
             <Navbar />
             <div className="category-posts-container">
-                <h2 className="category-title">Posts in: {decodedCategory}</h2>
+                <h2 className="category-title">{decodedCategory}</h2>
                 {loading ? (
                     <p>Loading...</p>
                 ) : error ? (
                     <p className="error-text">{error}</p>
                 ) : posts.length === 0 ? (
-                    <p>No posts yet in this category</p>
+                    <div className="no-posts">
+                        <p>No posts yet in this category</p>
+                    </div>
                 ) : (
                     <div className="posts-grid">
                         {posts.map((post) => (
