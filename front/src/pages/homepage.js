@@ -44,22 +44,25 @@ const Homepage = () => {
                     <Link to="/add-post" className="post-link">Add a post</Link>
                     <Link to="/posts" className="post-link">View posts</Link>
                 </div>
-                
-                <h2 className="homepage-heading">Explore African Culture</h2>
-                <p className="homepage-subtext">Select a category to dive into its rich heritage:</p>
-                <ul className="categories-list">
-                    {categories.map((category, index) => (
-                        <li key={index} className="category-item">
-                            <Link
-                                to={`/category/${encodeURIComponent(category)}`}
-                                className="category-link"
-                            >
-                                <img src={categoryIcons[category]} alt={category} className="category-icon" />
-                                {category}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+
+                <div className="homepage-content">
+                    <h2 className="homepage-heading">Explore African Culture</h2>
+                    <p className="homepage-subtext">Select a category to dive into its rich heritage:</p>
+                    <ul className="categories-list">
+                        {categories.map((category, index) => (
+                            <li key={index} className="category-item">
+                                <Link
+                                    to={`/category/${encodeURIComponent(category)}`}
+                                    className="category-link"
+                                >
+                                    <img src={categoryIcons[category]} alt={category} className="category-icon" />
+                                    {category}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
             </div>
         </div>
     );

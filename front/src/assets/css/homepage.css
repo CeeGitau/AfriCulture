@@ -31,6 +31,10 @@
     background-color: #0252a7; 
 }
 
+.homepage-content {
+    margin-top: 150px;
+}
+
 .homepage-heading {
     font-size: 36px;
     color: #ffffff;
