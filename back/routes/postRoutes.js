@@ -5,7 +5,7 @@ const { CreatePost, getPostsByCategory } = require('../controllers/postControlle
 
 router.post('/', authMiddleware, CreatePost);
 
-router.get('category/:category', getPostsByCategory);
+router.get('/category/:category', getPostsByCategory);
 
 module.exports = router;
 
