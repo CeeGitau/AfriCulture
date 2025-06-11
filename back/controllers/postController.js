@@ -30,7 +30,7 @@ const getPostsByCategory = async (req, res) => {
     const { category } = req.params;
 
     try {
-        const posts = await Post.find({ category });
+        const posts = await Post.find({ category }).populate("user", "username");
         res.status(200).json(posts);
     } catch (err) {
         console.error("Error fetching posts by category:", err);

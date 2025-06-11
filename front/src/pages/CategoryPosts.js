@@ -29,6 +29,30 @@ const CategoryPosts = () => {
         fetchPostsByCategory();
     }, [decodedCategory]);
 
+    const formatPostDate = (createdAt) => {
+        const postDate = new Date(createdAt);
+        const now = new Date();
+        const diffMs = now - postDate;
+        const diffMinutes = Math.floor(diffMs / (1000 * 60));
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+
+        if (diffMinutes < 1) {
+            return "Just now";
+        } else if (diffMinutes < 60) {
+            return `${diffMinutes} minute${diffMinutes > 1 ? "s" : ""} ago`;
+        } else if (diffHours < 24) {
+            return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
+        } else {
+            return postDate.toLocaleDateString(undefined, {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+    };
+
+
+
     return (
         <div>
             <Navbar />
@@ -46,10 +70,12 @@ const CategoryPosts = () => {
                     <div className="posts-grid">
                         {posts.map((post) => (
                             <div key={post._id} className="post-card">
+                                <p className="post-username">Posted by: {post.user?.username}</p>
+                                <p className="post-date">Posted: {formatPostDate(post.createdAt)}</p>
                                 <h3>{post.title}</h3>
                                 <p>{post.content}</p>
                                 {post.image && (
-                                    <img 
+                                    <img
                                         src={post.image}
                                         alt="Post visual"
                                         className="post-image"
