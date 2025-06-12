@@ -42,7 +42,7 @@ const Homepage = () => {
             <div className="homepage-container">
                 <div className="conversation-buttons">
                     <Link to="/add-post" className="post-link">Add a post</Link>
-                    <Link to="/posts" className="post-link">View posts</Link>
+                    <Link to="/all-posts" className="post-link">View posts</Link>
                 </div>
 
                 <div className="homepage-content">

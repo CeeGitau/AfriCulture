@@ -8,18 +8,20 @@ import About from "./pages/about";
 import Profile from "./pages/profile";
 import Logout from "./pages/logout";
 import AddPost from "./pages/AddPost";
+import Posts from "./pages/Posts";
 import CategoryPosts from "./pages/CategoryPosts";
 import UserContext from "./contexts/UserContext";
 
 const router = createBrowserRouter([
   { path: '/', element: <Landing /> },
   { path: '/register', element: <Register /> },
-  { path: '/login', element: <Login />},
-  { path: '/homepage', element: <Homepage />},
-  { path: '/about', element: <About />},
-  { path: '/profile', element: <Profile />},
-  { path: '/logout', element: <Logout />},
-  { path: '/add-post', element: <AddPost />},
+  { path: '/login', element: <Login /> },
+  { path: '/homepage', element: <Homepage /> },
+  { path: '/about', element: <About /> },
+  { path: '/profile', element: <Profile /> },
+  { path: '/logout', element: <Logout /> },
+  { path: '/add-post', element: <AddPost /> },
+  { path: '/all-posts', element: <Posts /> },
   { path: '/category/:categoryName', element: <CategoryPosts />},
 ]);
 
