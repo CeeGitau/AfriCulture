@@ -9,6 +9,7 @@ import Profile from "./pages/profile";
 import Logout from "./pages/logout";
 import AddPost from "./pages/AddPost";
 import Posts from "./pages/Posts";
+import SinglePost from "./pages/SinglePost";
 import CategoryPosts from "./pages/CategoryPosts";
 import UserContext from "./contexts/UserContext";
 
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
   { path: '/add-post', element: <AddPost /> },
   { path: '/all-posts', element: <Posts /> },
   { path: '/category/:categoryName', element: <CategoryPosts />},
+  { path: '/post/:postId', element: <SinglePost /> },
 ]);
 
 function App() {
