@@ -60,9 +60,22 @@ const getSinglePost = async (req, res) => {
     }
 };
 
+const getPostsByUser = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const posts = await Post.find({ user: userId }).sort({ createdAt: -1 });
+    res.status(200).json(posts);
+  } catch (error) {
+    console.error("Error fetching user's posts:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+
 module.exports = {
     CreatePost,
     getPostsByCategory, 
     getAllPosts,
-    getSinglePost
+    getSinglePost,
+    getPostsByUser
 };
