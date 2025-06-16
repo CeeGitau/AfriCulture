@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../assets/css/CategoryPosts.css";
 
@@ -51,8 +52,6 @@ const CategoryPosts = () => {
         }
     };
 
-
-
     return (
         <div>
             <Navbar />
@@ -69,25 +68,31 @@ const CategoryPosts = () => {
                 ) : (
                     <div className="posts-grid">
                         {posts.map((post) => (
-                            <div key={post._id} className="post-card">
-                                <p className="post-username">Posted by: {post.user?.username}</p>
-                                <p className="post-date">Posted: {formatPostDate(post.createdAt)}</p>
-                                <h3>{post.title}</h3>
-                                <p>{post.content}</p>
-                                {post.image && (
-                                    <img
-                                        src={post.image}
-                                        alt="Post visual"
-                                        className="post-image"
-                                    />
-                                )}
-                                {post.audio && (
-                                    <audio controls className="post-audio">
-                                        <source src={post.audio} type="audio/mpeg" />
-                                        Your browser does not support the audio element
-                                    </audio>
-                                )}
-                            </div>
+                            <Link
+                                key={post._id}
+                                to={`/post/${post._id}`}
+                                className="post-card-link"
+                            >
+                                <div className="post-card">
+                                    <span className="post-community">Community: {post.community}</span>
+                                    <p className="post-username">Posted by: {post.user?.username}</p>
+                                    <p className="post-date">Posted: {formatPostDate(post.createdAt)}</p>
+                                    <h3>{post.title}</h3>
+                                    {post.image && (
+                                        <img
+                                            src={post.image}
+                                            alt="Post visual"
+                                            className="post-image"
+                                        />
+                                    )}
+                                    {post.audio && (
+                                        <audio controls className="post-audio">
+                                            <source src={post.audio} type="audio/mpeg" />
+                                            Your browser does not support the audio element
+                                        </audio>
+                                    )}
+                                </div>
+                            </Link>
                         ))}
                     </div>
                 )}
