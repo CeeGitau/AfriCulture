@@ -45,6 +45,7 @@ function App() {
         .then(data => {
           if (data.success) {
             setUser(data.user);
+            localStorage.setItem("user", JSON.stringify(data.user));
           } else {
             localStorage.removeItem("user");
             localStorage.removeItem("token");

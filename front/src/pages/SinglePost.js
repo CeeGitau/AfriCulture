@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 import Navbar from "../components/Navbar";
 import "../assets/css/SinglePost.css";
 
 const SinglePost = () => {
     const { postId } = useParams();
+    const { user: currentUser } = useContext(UserContext);
+
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-
-    const currentUser = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -53,7 +55,7 @@ const SinglePost = () => {
     if (error) return <p>Error: {error}</p>;
     if (!post) return <p>No post data available.</p>;
 
-    const isAuthor = currentUser && post.user && String(currentUser._id) === String(post.user._id);
+    const isAuthor = currentUser?._id === post.user?._id;
 
     console.log("currentUser._id:", currentUser?._id);
     console.log("post.user._id:", post.user?._id);
