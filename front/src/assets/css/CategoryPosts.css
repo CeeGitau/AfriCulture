@@ -1,6 +1,6 @@
 .no-posts {
     font-size: 16px;
-    color: #000000;
+    color: #ffffff;
     text-align: center;
     margin-top: 20px;
     padding: 20px;
@@ -23,7 +23,7 @@
 .category-title {
     font-size: 2rem;
     margin-bottom: 1rem;
-    color: #333;
+    color: #ffffff;
     border-bottom: 3px solid #0b8457;
     display: inline-block;
     padding-bottom: 0.3rem;
