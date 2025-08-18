@@ -8,7 +8,20 @@
 .posts-page-title {
     font-size: 28px;
     margin-bottom: 20px;
+    color: #ffffff;
     text-align: center;
+}
+
+.filter-container 
+{
+    margin-bottom: 20px;  
+    align-items: center;
+    gap: 10px; 
+}
+
+.filter-container label {
+    color: #ffffff;
+    margin-right: 10px;
 }
 
 .posts-page-grid {

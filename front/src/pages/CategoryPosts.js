@@ -10,6 +10,50 @@ const CategoryPosts = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedCommunity, setSelectedCommunity] = useState("");
+
+    const communities = [
+        "Kikuyu",
+        "Luhya",
+        "Kalenjin",
+        "Luo",
+        "Kamba",
+        "Somali",
+        "Kisii",
+        "Mijikenda",
+        "Maasai",
+        "Taita",
+        "Embu",
+        "Meru",
+        "Turkana",
+        "Teso",
+        "Ilchamus",
+        "Samburu",
+        "Rendille",
+        "Borana",
+        "Gabra",
+        "Pokot",
+        "Njemps",
+        "Galla",
+        "Ndorobo",
+        "Suba",
+        "Ogiek",
+        "El Molo",
+        "Kuria",
+        "Malakote",
+        "Swahili",
+        "Arabs",
+        "Waat",
+        "Nubians",
+        "Boni",
+        "Giriama",
+        "Digo",
+        "Taveta",
+        "Bajuni",
+        "Orma",
+        "Burji",
+        "Sakuye",
+    ];
 
     useEffect(() => {
         const fetchPostsByCategory = async () => {
@@ -52,19 +96,43 @@ const CategoryPosts = () => {
         }
     };
 
+    const filteredPosts = posts.filter(
+        (post) =>
+            (!selectedCommunity || post.community === selectedCommunity)
+    );
+
     return (
         <div>
             <Navbar />
             <div className="category-posts-container">
                 <h2 className="category-title">{decodedCategory}</h2>
+
+                <div className="filter-container">
+                    <label htmlFor="community-filter">Filter by Community: </label>
+                    <select
+                        id="community-filter"
+                        value={selectedCommunity}
+                        onChange={(e) => setSelectedCommunity(e.target.value)}
+                    >
+                        <option value="">-- Select Community --</option>
+                        {communities.map((community) => (
+                            <option key={community} value={community}>
+                                {community}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
                 {loading ? (
                     <p>Loading...</p>
                 ) : error ? (
                     <p className="error-text">{error}</p>
-                ) : posts.length === 0 ? (
-                    <div className="no-posts">
-                        <p>No posts yet in this category</p>
-                    </div>
+                ) : filteredPosts.length === 0 ? (
+                    selectedCommunity ? (
+                        <p className="no-posts">No posts for this community yet</p>
+                    ) : (
+                        <p className="no-posts">No posts yet</p>
+                    )
                 ) : (
                     <div className="posts-grid">
                         {posts.map((post) => (

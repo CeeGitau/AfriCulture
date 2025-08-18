@@ -6,6 +6,50 @@ const Posts = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [selectedCommunity, setSelectedCommunity] = useState("");
+
+    const communities = [
+        "Kikuyu",
+        "Luhya",
+        "Kalenjin",
+        "Luo",
+        "Kamba",
+        "Somali",
+        "Kisii",
+        "Mijikenda",
+        "Maasai",
+        "Taita",
+        "Embu",
+        "Meru",
+        "Turkana",
+        "Teso",
+        "Ilchamus",
+        "Samburu",
+        "Rendille",
+        "Borana",
+        "Gabra",
+        "Pokot",
+        "Njemps",
+        "Galla",
+        "Ndorobo",
+        "Suba",
+        "Ogiek",
+        "El Molo",
+        "Kuria",
+        "Malakote",
+        "Swahili",
+        "Arabs",
+        "Waat",
+        "Nubians",
+        "Boni",
+        "Giriama",
+        "Digo",
+        "Taveta",
+        "Bajuni",
+        "Orma",
+        "Burji",
+        "Sakuye",
+    ];
 
     useEffect(() => {
         const fetchAllPosts = async () => {
@@ -49,20 +93,45 @@ const Posts = () => {
         }
     };
 
+    const filteredPosts = selectedCommunity
+        ? posts.filter(post => post.community === selectedCommunity)
+        : posts;
+
     return (
         <div>
             <Navbar />
             <div className="posts-page-container">
                 <h1 className="posts-page-title">All Posts</h1>
+
+                <div className="filter-container">
+                    <label htmlFor="communityFilter">Filter by Community</label>
+                    <select
+                        id="communityFilter"
+                        value={selectedCommunity}
+                        onChange={(e) => setSelectedCommunity(e.target.value)}
+                    >
+                        <option value="">All</option>
+                        {communities.map((community, index) => (
+                            <option key={index} value={community}>
+                                {community}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
                 {loading ? (
                     <p>Loading...</p>
                 ) : error ? (
                     <p className="error-text">{error}</p>
-                ) : posts.length === 0 ? (
-                    <p>No posts yet</p>
+                ) : filteredPosts.length === 0 ? (
+                    selectedCommunity ? (
+                        <p className="no-posts">No posts for this community yet</p>
+                    ) : (
+                        <p className="no-posts">No posts yet</p>
+                    )
                 ) : (
                     <div className="posts-page-grid">
-                        {posts.map((post) => (
+                        {filteredPosts.map((post) => (
                             <div key={post._id} className="post-card">
                                 <p className="post-username">Posted by: {post.user?.username}</p>
                                 <h3>{post.title}</h3>
@@ -80,9 +149,7 @@ const Posts = () => {
                                         Your browser does not support the audio element.
                                     </audio>
                                 )}
-                                <p className="post-date">
-                                    {formatPostDate(post.createdAt)}
-                                </p>
+                                <p className="post-date">{formatPostDate(post.createdAt)}</p>
                             </div>
                         ))}
                     </div>
