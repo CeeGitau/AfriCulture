@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import CommunityLabel from "../components/CommunityLabel";
 import "../assets/css/Posts.css";
 
 const Posts = () => {
@@ -151,15 +152,16 @@ const Posts = () => {
                                 className="post-card-link"
                             >
                                 <div className="post-card">
-                                    <span className="post-community">
-                                        {post.community}
-                                    </span>
+                                    <CommunityLabel community={post.community} />
+
                                     <p className="post-username">
                                         Posted by: {post.user?.username}
                                     </p>
+
                                     <p className="post-date">
                                         Posted: {formatPostDate(post.createdAt)}
                                     </p>
+                                    
                                     <h3>{post.title}</h3>
                                     {post.image && (
                                         <img
