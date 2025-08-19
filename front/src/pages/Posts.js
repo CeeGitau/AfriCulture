@@ -126,9 +126,21 @@ const Posts = () => {
                     <p className="error-text">{error}</p>
                 ) : filteredPosts.length === 0 ? (
                     selectedCommunity ? (
-                        <p className="no-posts">No posts for this community yet</p>
+                        <div className="no-posts">
+                            <p>No posts for this community yet</p>
+
+                            <div className="add-post-button">
+                                <Link to="/add-post" className="post-link">Add a post</Link>
+                            </div>
+                        </div>
                     ) : (
-                        <p className="no-posts">No posts yet</p>
+                        <div className="no-posts">
+                            <p className="">No posts yet</p>
+
+                            <div className="add-post-button">
+                                <Link to="/add-post" className="post-link">Add a post</Link>
+                            </div>
+                        </div>
                     )
                 ) : (
                     <div className="posts-page-grid">
@@ -140,7 +152,7 @@ const Posts = () => {
                             >
                                 <div className="post-card">
                                     <span className="post-community">
-                                        Community: {post.community}
+                                        {post.community}
                                     </span>
                                     <p className="post-username">
                                         Posted by: {post.user?.username}
