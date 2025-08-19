@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import { Link } from "react-router-dom";
+import { FaEdit } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import defaultPic from "../assets/images/default-pic.png";
 import "../assets/css/profile.css";
@@ -56,11 +57,17 @@ const Profile = () => {
         <div >
             <Navbar />
             <div className="profile-page">
-                <img
-                    className="profile-pic"
-                    src={profile.profilePicture || defaultPic}
-                    alt="Profile"
-                />
+                <div className="profile-meta-content">
+                    <img
+                        className="profile-pic"
+                        src={profile.profilePicture || defaultPic}
+                        alt="Profile"
+                    />
+
+                    <Link to="/edit-profile">
+                        <FaEdit style={{ color: "white", fontSize: "45px" }} />
+                    </Link>
+                </div>
 
                 <h2>Welcome, {profile.username}</h2>
                 <p><strong>Email:</strong> {profile.email}</p>
@@ -76,7 +83,7 @@ const Profile = () => {
                             <li key={post._id} className="post-item">
                                 <h4>{post.title}</h4>
                                 <p>{post.content.slice(0, 100)}...</p>
-                                <Link to={`/post/${post._id}`} className="read-more-link">Read more</Link>
+                                <Link to={`/single-post/${post._id}`} className="read-more-link">Read more</Link>
                             </li>
                         ))}
                     </ul>

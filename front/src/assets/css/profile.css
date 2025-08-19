@@ -10,14 +10,20 @@
 }
 
 /* Profile details */
+.profile-meta-content {
+  display: flex;
+  align-items: center;   
+  gap: 20px;             
+}
+
 .profile-pic {
   width: 150px;
   height: 150px;
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid #F4F4F4;
-  margin-bottom: 1rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 0;             
 }
 
 .profile-page h2 {

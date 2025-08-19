@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import Homepage from "./pages/homepage";
 import About from "./pages/about";
 import Profile from "./pages/profile";
+import EditPage from "./pages/EditProfile";
 import Logout from "./pages/logout";
 import AddPost from "./pages/AddPost";
 import Posts from "./pages/Posts";
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
   { path: '/homepage', element: <Homepage /> },
   { path: '/about', element: <About /> },
   { path: '/profile', element: <Profile /> },
+  { path: '/edit-profile', element: <EditPage /> },
   { path: '/logout', element: <Logout /> },
   { path: '/add-post', element: <AddPost /> },
   { path: '/all-posts', element: <Posts /> },
