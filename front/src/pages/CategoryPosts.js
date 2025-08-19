@@ -138,7 +138,7 @@ const CategoryPosts = () => {
                         {posts.map((post) => (
                             <Link
                                 key={post._id}
-                                to={`/post/${post._id}`}
+                                to={`/single-category-post/${post._id}`}
                                 className="post-card-link"
                             >
                                 <div className="post-card">
