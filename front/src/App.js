@@ -11,6 +11,7 @@ import AddPost from "./pages/AddPost";
 import Posts from "./pages/Posts";
 import SinglePost from "./pages/SinglePost";
 import CategoryPosts from "./pages/CategoryPosts";
+import SingleCategoryPost from "./pages/SingleCategoryPost";
 import UserContext from "./contexts/UserContext";
 
 const router = createBrowserRouter([
@@ -23,8 +24,9 @@ const router = createBrowserRouter([
   { path: '/logout', element: <Logout /> },
   { path: '/add-post', element: <AddPost /> },
   { path: '/all-posts', element: <Posts /> },
+  { path: '/single-post/:postId', element: <SinglePost /> },
   { path: '/category/:categoryName', element: <CategoryPosts />},
-  { path: '/post/:postId', element: <SinglePost /> },
+  { path: '/single-category-post/:postId', element: <SingleCategoryPost /> },
 ]);
 
 function App() {
