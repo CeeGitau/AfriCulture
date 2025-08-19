@@ -108,13 +108,13 @@ const CategoryPosts = () => {
                 <h2 className="category-title">{decodedCategory}</h2>
 
                 <div className="filter-container">
-                    <label htmlFor="community-filter">Filter by Community: </label>
+                    <label htmlFor="community-filter">Filter by Community</label>
                     <select
                         id="community-filter"
                         value={selectedCommunity}
                         onChange={(e) => setSelectedCommunity(e.target.value)}
                     >
-                        <option value="">-- Select Community --</option>
+                        <option value="">All</option>
                         {communities.map((community) => (
                             <option key={community} value={community}>
                                 {community}
@@ -129,13 +129,25 @@ const CategoryPosts = () => {
                     <p className="error-text">{error}</p>
                 ) : filteredPosts.length === 0 ? (
                     selectedCommunity ? (
-                        <p className="no-posts">No posts for this community yet</p>
+                        <div className="no-posts">
+                            <p>No posts for this community yet</p>
+
+                            <div className="add-post-button">
+                                <Link to="/add-post" className="post-link">Add a post</Link>
+                            </div>
+                        </div>
                     ) : (
-                        <p className="no-posts">No posts yet</p>
+                        <div className="no-posts">
+                            <p className="">No posts yet</p>
+
+                            <div className="add-post-button">
+                                <Link to="/add-post" className="post-link">Add a post</Link>
+                            </div>
+                        </div>
                     )
                 ) : (
                     <div className="posts-grid">
-                        {posts.map((post) => (
+                        {filteredPosts.map((post) => (
                             <Link
                                 key={post._id}
                                 to={`/single-category-post/${post._id}`}
