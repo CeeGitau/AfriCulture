@@ -107,6 +107,29 @@
   background-color: #256429;
 }
 
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.post-actions .edit-icon,
+.post-actions .delete-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.post-actions .edit-icon:hover {
+  transform: scale(1.2);
+}
+
+.post-actions .delete-icon:hover {
+  transform: scale(1.2);
+}
+
+
 @media (max-width: 600px) {
   .profile-pic {
     width: 120px;

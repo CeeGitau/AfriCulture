@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../contexts/UserContext";
-import { Link } from "react-router-dom";
-import { FaEdit } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import defaultPic from "../assets/images/default-pic.png";
 import "../assets/css/profile.css";
@@ -10,6 +10,7 @@ const Profile = () => {
     const { user } = useContext(UserContext);
     const [profile, setProfile] = useState(null);
     const [myPosts, setMyPosts] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -51,6 +52,27 @@ const Profile = () => {
         fetchProfile();
     }, []);
 
+    const handleDelete = async (postId) => {
+        if (!window.confirm("Are you sure you want to delete this post?")) return;
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch(`http://localhost:5000/api/posts/${postId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (res.ok) {
+                setMyPosts(myPosts.filter(post => post._id !== postId));
+            } else {
+                console.error("Failed to delete post");
+            }
+        } catch (error) {
+            console.error("Error deleting post:", error);
+        }
+    };
+
     if (!profile) return <p>Loading profile...</p>;
 
     return (
@@ -83,7 +105,27 @@ const Profile = () => {
                             <li key={post._id} className="post-item">
                                 <h4>{post.title}</h4>
                                 <p>{post.content.slice(0, 100)}...</p>
-                                <Link to={`/single-post/${post._id}`} className="read-more-link" title="read entire post">Read more</Link>
+                                <div className="post-actions">
+                                    <Link to={`/single-post/${post._id}`} className="read-more-link" title="read entire post">
+                                        Read more
+                                    </Link>
+
+                                    <Link
+                                        to={`/edit-post/${post._id}`}
+                                        title="Edit Post"
+                                        className="edit-icon"
+                                    >
+                                        <FaEdit style={{ color: "blue", fontSize: "18px" }} />
+                                    </Link>
+                                    
+                                    <button
+                                        onClick={() => handleDelete(post._id)}
+                                        title="Delete Post"
+                                        className="delete-icon"
+                                    >
+                                        <FaTrash style={{ color: "red", fontSize: "18px" }} />
+                                    </button>
+                                </div>
                             </li>
                         ))}
                     </ul>
