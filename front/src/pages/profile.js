@@ -65,7 +65,7 @@ const Profile = () => {
                     />
 
                     <Link to="/edit-profile">
-                        <FaEdit style={{ color: "white", fontSize: "45px" }} />
+                        <FaEdit style={{ color: "white", fontSize: "45px" }} title="Edit Profile" />
                     </Link>
                 </div>
 
@@ -83,7 +83,7 @@ const Profile = () => {
                             <li key={post._id} className="post-item">
                                 <h4>{post.title}</h4>
                                 <p>{post.content.slice(0, 100)}...</p>
-                                <Link to={`/single-post/${post._id}`} className="read-more-link">Read more</Link>
+                                <Link to={`/single-post/${post._id}`} className="read-more-link" title="read entire post">Read more</Link>
                             </li>
                         ))}
                     </ul>
