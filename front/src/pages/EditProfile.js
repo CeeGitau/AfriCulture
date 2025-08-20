@@ -7,6 +7,8 @@ import "../assets/css/EditProfile.css";
 const EditPage = () => {
     const [username, setUsername] = useState("");
     const [profilePicture, setProfilePicture] = useState(null);
+    const [currentPassword, setCurrentPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
     const [preview, setPreview] = useState(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -48,6 +50,11 @@ const EditPage = () => {
             formData.append("username", username);
             if (profilePicture) {
                 formData.append("profilePicture", profilePicture);
+            }
+
+            if (currentPassword && newPassword) {
+                formData.append("currentPassword", currentPassword);
+                formData.append("newPassword", newPassword);
             }
 
             const res = await fetch(`http://localhost:5000/api/users/${"me"}`, {
@@ -96,6 +103,24 @@ const EditPage = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required
+                        />
+                    </div>
+
+                    <div>
+                        <label>Current Password</label>
+                        <input
+                            type="password"
+                            value={currentPassword}
+                            onChange={(e) => setCurrentPassword(e.target.value)}
+                        />
+                    </div>
+
+                    <div>
+                        <label>New Password</label>
+                        <input
+                            type="password"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
                         />
                     </div>
 

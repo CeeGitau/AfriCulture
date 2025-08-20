@@ -31,6 +31,12 @@
   border: 1px solid #ccc;
 }
 
+.edit-profile-form input[type="password"] {
+    padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
 .edit-profile-form button {
   background: #4CAF50;
   color: white;

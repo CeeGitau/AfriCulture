@@ -60,8 +60,53 @@ const Auth = async (req, res) => {
     }
 };
 
+const UpdateProfile = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { username, currentPassword, newPassword } = req.body;
+
+        const user = await User.findById(userId);
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        // Update username
+        if (username) {
+            user.username = username;
+        }
+
+        // Handle password change
+        if (req.file) {
+            user.profilePicture = `/uploads/${req.file.filename}`;
+        }
+
+        // Handle password change
+        if (currentPassword && newPassword) {
+            const isMatch = await bcrypt.compare(currentPassword, user.password);
+            if (!isMatch) {
+                return res.status(400).json({ message: "Current password is incorrect" });
+            }
+            user.password = await bcrypt.hash(newPassword, 10);
+        }
+
+        await user.save();
+
+        res.status(200).json({ 
+            message: "Profile updated successfully",
+            user: {
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                profilePicture: user.profilePicture
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error", error });
+    }
+};
+
 module.exports = {
     Register,
     Login,
-    Auth
+    Auth,
+    UpdateProfile
 };
