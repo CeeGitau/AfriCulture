@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import defaultPic from "../assets/images/default-pic.png";
 import "../assets/css/EditProfile.css";
 
-const EditPage = () => {
+const EditPost = () => {
     const [username, setUsername] = useState("");
     const [profilePicture, setProfilePicture] = useState(null);
     const [currentPassword, setCurrentPassword] = useState("");
@@ -133,4 +133,4 @@ const EditPage = () => {
     );
 };
 
-export default EditPage;
+export default EditPost;

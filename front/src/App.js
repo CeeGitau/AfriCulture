@@ -6,9 +6,10 @@ import Login from "./pages/login";
 import Homepage from "./pages/homepage";
 import About from "./pages/about";
 import Profile from "./pages/profile";
-import EditPage from "./pages/EditProfile";
+import EditProfile from "./pages/EditProfile";
 import Logout from "./pages/logout";
 import AddPost from "./pages/AddPost";
+import EditPost from "./pages/EditPost";
 import Posts from "./pages/Posts";
 import SinglePost from "./pages/SinglePost";
 import CategoryPosts from "./pages/CategoryPosts";
@@ -22,9 +23,10 @@ const router = createBrowserRouter([
   { path: '/homepage', element: <Homepage /> },
   { path: '/about', element: <About /> },
   { path: '/profile', element: <Profile /> },
-  { path: '/edit-profile', element: <EditPage /> },
+  { path: '/edit-profile', element: <EditProfile /> },
   { path: '/logout', element: <Logout /> },
   { path: '/add-post', element: <AddPost /> },
+  { path: '/edit-post/:id', element: <EditPost /> },
   { path: '/all-posts', element: <Posts /> },
   { path: '/single-post/:postId', element: <SinglePost /> },
   { path: '/category/:categoryName', element: <CategoryPosts />},

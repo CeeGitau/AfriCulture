@@ -38,7 +38,7 @@
 }
 
 .edit-profile-form button {
-  background: #4CAF50;
+  background: #007bff;
   color: white;
   padding: 0.7rem;
   border: none;
@@ -47,7 +47,7 @@
 }
 
 .edit-profile-form button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
 .edit-profile-form button:disabled {

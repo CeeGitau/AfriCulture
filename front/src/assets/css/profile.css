@@ -83,7 +83,7 @@
 
 .post-item h4 {
   margin: 0 0 0.5rem;
-  color: #2e7d32;
+  color: #681f1f;
   font-size: 1.3rem;
 }
 
@@ -95,7 +95,7 @@
 .read-more-link {
   display: inline-block;
   padding: 0.4rem 0.8rem;
-  background-color: #2e7d32;
+  background-color: #007bff;
   color: #fff;
   border-radius: 8px;
   text-decoration: none;
@@ -104,7 +104,7 @@
 }
 
 .read-more-link:hover {
-  background-color: #256429;
+  background-color: #0252a7;
 }
 
 .post-actions {
