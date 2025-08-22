@@ -72,10 +72,39 @@ const getPostsByUser = async (req, res) => {
   }
 };
 
+const updatePost = async (req, res) => {
+  try {
+    const { content } = req.body;
+
+    // Find the post
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    // Ensure the logged-in user is the owner
+    if (post.user.toString() !== req.user.id) {
+      return res.status(403).json({ message: "Not authorized to edit this post" });
+    }
+
+    // Update content only
+    if (content) post.content = content;
+
+    const updatedPost = await post.save();
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).json({ message: "Server error while updating post" });
+  }
+};
+
+
 module.exports = {
     CreatePost,
     getPostsByCategory, 
     getAllPosts,
     getSinglePost,
-    getPostsByUser
+    getPostsByUser,
+    updatePost,
 };

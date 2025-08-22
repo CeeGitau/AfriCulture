@@ -47,7 +47,7 @@ const EditPost = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ content }), // ✅ only send updated content
+        body: JSON.stringify({ content }), // only send updated content
       });
 
       const data = await res.json();
