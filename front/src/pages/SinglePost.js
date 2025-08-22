@@ -59,38 +59,39 @@ const SinglePost = () => {
             <Navbar />
             <div className="single-post-wrapper">
 
-
-                <div className="single-post-container">
+                <div className="single-post-content">
                     <button
                         className="back-button"
                         onClick={() => navigate("/all-posts")}
                     >
                         ⬅ Back
                     </button>
-                    
-                    <div className="category-badge">
-                        <span> {post.category}</span>
-                    </div>
 
-                    <h2>{post.title}</h2>
-                    <div className="meta">
-                        {isAuthor ? (
-                            <p>You posted · {formatPostDate(post.createdAt)}</p>
-                        ) : (
-                            <p>By {post.user?.username} · {formatPostDate(post.createdAt)}</p>
+                    <div className="single-post-container">
+                        <div className="category-badge">
+                            <span> {post.category}</span>
+                        </div>
+
+                        <h2>{post.title}</h2>
+                        <div className="meta">
+                            {isAuthor ? (
+                                <p>You posted · {formatPostDate(post.createdAt)}</p>
+                            ) : (
+                                <p>By {post.user?.username} · {formatPostDate(post.createdAt)}</p>
+                            )}
+                            <p>🏘️ Community: {post.community}</p>
+                        </div>
+
+                        <p>{post.content}</p>
+
+                        {post.image && <img src={post.image} alt="Post visual" />}
+                        {post.audio && (
+                            <audio controls>
+                                <source src={post.audio} type="audio/mpeg" />
+                                Your browser does not support the audio element.
+                            </audio>
                         )}
-                        <p>🏘️ Community: {post.community}</p>
                     </div>
-
-                    <p>{post.content}</p>
-
-                    {post.image && <img src={post.image} alt="Post visual" />}
-                    {post.audio && (
-                        <audio controls>
-                            <source src={post.audio} type="audio/mpeg" />
-                            Your browser does not support the audio element.
-                        </audio>
-                    )}
                 </div>
             </div>
         </div>

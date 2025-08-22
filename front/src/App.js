@@ -30,7 +30,7 @@ const router = createBrowserRouter([
   { path: '/all-posts', element: <Posts /> },
   { path: '/single-post/:postId', element: <SinglePost /> },
   { path: '/category/:categoryName', element: <CategoryPosts />},
-  { path: '/single-category-post/:postId', element: <SingleCategoryPost /> },
+  { path: '/single-category-post/:categoryName/post/:postId', element: <SingleCategoryPost /> },
 ]);
 
 function App() {

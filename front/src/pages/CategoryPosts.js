@@ -151,7 +151,7 @@ const CategoryPosts = () => {
                         {filteredPosts.map((post) => (
                             <Link
                                 key={post._id}
-                                to={`/single-category-post/${post._id}`}
+                                to={`/single-category-post/${encodeURIComponent(decodedCategory)}/post/${post._id}`}
                                 className="post-card-link"
                             >
                                 <div className="post-card">

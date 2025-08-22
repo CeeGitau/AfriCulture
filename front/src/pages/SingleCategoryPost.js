@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import Navbar from "../components/Navbar";
 import "../assets/css/SingleCategoryPost.css";
 
 const SingleCategoryPost = () => {
-    const { postId } = useParams();
+    const { postId, categoryName } = useParams();
+    const navigate = useNavigate();
     const { user: currentUser } = useContext(UserContext);
 
     const [post, setPost] = useState(null);
@@ -67,30 +68,39 @@ const SingleCategoryPost = () => {
         <div>
             <Navbar />
             <div className="single-post-wrapper">
-                <div className="single-post-container">
-                    <div className="category-badge">
-                        <span>🎵 {post.category}</span>
-                    </div>
+                <div className="single-post-content">
+                    <button
+                        className="back-button"
+                        onClick={() => navigate(`/category/${encodeURIComponent(categoryName)}`)} 
+                    >
+                        ⬅ Back
+                    </button>
 
-                    <h2>{post.title}</h2>
-                    <div className="meta">
-                        {isAuthor ? (
-                            <p>You posted · {formatPostDate(post.createdAt)}</p>
-                        ) : (
-                            <p>By {post.user?.username} · {formatPostDate(post.createdAt)}</p>
+                    <div className="single-post-container">
+                        <div className="category-badge">
+                            <span>🎵 {post.category}</span>
+                        </div>
+
+                        <h2>{post.title}</h2>
+                        <div className="meta">
+                            {isAuthor ? (
+                                <p>You posted · {formatPostDate(post.createdAt)}</p>
+                            ) : (
+                                <p>By {post.user?.username} · {formatPostDate(post.createdAt)}</p>
+                            )}
+                            <p>🏘️ Community: {post.community}</p>
+                        </div>
+
+                        <p>{post.content}</p>
+
+                        {post.image && <img src={post.image} alt="Post visual" />}
+                        {post.audio && (
+                            <audio controls>
+                                <source src={post.audio} type="audio/mpeg" />
+                                Your browser does not support the audio element.
+                            </audio>
                         )}
-                        <p>🏘️ Community: {post.community}</p>
                     </div>
-
-                    <p>{post.content}</p>
-
-                    {post.image && <img src={post.image} alt="Post visual" />}
-                    {post.audio && (
-                        <audio controls>
-                            <source src={post.audio} type="audio/mpeg" />
-                            Your browser does not support the audio element.
-                        </audio>
-                    )}
                 </div>
             </div>
 
