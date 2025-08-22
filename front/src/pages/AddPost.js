@@ -137,7 +137,7 @@ const AddPost = () => {
 
             if (res.ok) {
                 alert("Post submitted!");
-                navigate("/posts");
+                navigate("/all-posts");
             } else {
                 alert(data.message || "Failed to submit post");
             }
