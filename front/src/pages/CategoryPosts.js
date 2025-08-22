@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import CommunityLabel from "../components/CommunityLabel";
@@ -7,6 +7,7 @@ import "../assets/css/CategoryPosts.css";
 
 const CategoryPosts = () => {
     const { categoryName } = useParams();
+    const navigate = useNavigate();
     const decodedCategory = decodeURIComponent(categoryName);
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -108,6 +109,15 @@ const CategoryPosts = () => {
             <div className="category-posts-container">
                 <h2 className="category-title">{decodedCategory}</h2>
 
+                <div className="category-post-content">
+                     <button 
+                        className="back-button" 
+                        onClick={() => navigate("/homepage")}
+                    >
+                        ⬅ Back to Home
+                    </button>
+                </div>
+                
                 <div className="filter-container">
                     <label htmlFor="community-filter">Filter by Community</label>
                     <select

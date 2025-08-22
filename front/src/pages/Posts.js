@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import CommunityLabel from "../components/CommunityLabel";
 import "../assets/css/Posts.css";
@@ -9,6 +9,7 @@ const Posts = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedCommunity, setSelectedCommunity] = useState("");
+    const navigate = useNavigate();
 
     const communities = [
         "Kikuyu",
@@ -103,7 +104,16 @@ const Posts = () => {
         <div>
             <Navbar />
             <div className="posts-page-container">
-                <h1 className="posts-page-title">All Posts</h1>
+                <div className="heading-container">
+                    <h1 className="posts-page-title">All Posts</h1>
+
+                    <button 
+                        className="back-button" 
+                        onClick={() => navigate("/homepage")}
+                    >
+                        ⬅ Back to Home
+                    </button>
+                </div>
 
                 <div className="filter-container">
                     <label htmlFor="communityFilter">Filter by Community</label>
