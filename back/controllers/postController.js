@@ -99,6 +99,27 @@ const updatePost = async (req, res) => {
   }
 };
 
+const deletePost = async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        // make sure only the owner can delete
+        if (post.user.toString() !== req.user.id) {
+            return res.status(401).json({ message: "Not authorized to delete this post" });
+        }
+
+        await post.deleteOne();
+        res.json({ message: "Post removed successfully" });
+    } catch (error) {
+        console.error("Error deleting post:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
 
 module.exports = {
     CreatePost,
@@ -107,4 +128,5 @@ module.exports = {
     getSinglePost,
     getPostsByUser,
     updatePost,
+    deletePost,
 };
