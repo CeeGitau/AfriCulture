@@ -25,7 +25,12 @@ const EditPost = () => {
                 const data = await res.json();
                 if (res.ok) {
                     setUsername(data.user.username);
-                    setPreview(data.user.profilePicture || defaultPic);
+                    setPreview(data.user.profilePicture
+                        ? (data.user.profilePicture.startsWith("http")
+                            ? data.user.profilePicture
+                            : `http://localhost:5000${data.user.profilePicture}`)
+                        : defaultPic
+                    );
                 }
             } catch (err) {
                 console.error("Error fetching profile:", err);
@@ -36,8 +41,10 @@ const EditPost = () => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setProfilePicture(file);
-        setPreview(URL.createObjectURL(file));
+        if (file) {
+            setProfilePicture(file);
+            setPreview(URL.createObjectURL(file));
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -79,6 +86,14 @@ const EditPost = () => {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        return () => {
+            if (preview && preview.startsWith("blob:")) {
+                URL.revokeObjectURL(preview);
+            }
+        };
+    }, [preview]);
 
     return (
         <div>

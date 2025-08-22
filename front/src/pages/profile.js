@@ -82,7 +82,7 @@ const Profile = () => {
                 <div className="profile-meta-content">
                     <img
                         className="profile-pic"
-                        src={profile.profilePicture || defaultPic}
+                        src={profile.profilePicture ? `http://localhost:5000${profile.profilePicture}` : defaultPic} 
                         alt="Profile"
                     />
 
