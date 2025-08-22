@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
-import Navbar from "../components/Navbar"; 
+import Navbar from "../components/Navbar";
 import "../assets/css/SinglePost.css";
 
 const SinglePost = () => {
     const { postId } = useParams();
+    const navigate = useNavigate();
     const { user: currentUser } = useContext(UserContext);
 
     const [post, setPost] = useState(null);
@@ -57,7 +58,16 @@ const SinglePost = () => {
         <div>
             <Navbar />
             <div className="single-post-wrapper">
+
+
                 <div className="single-post-container">
+                    <button
+                        className="back-button"
+                        onClick={() => navigate("/all-posts")}
+                    >
+                        ⬅ Back
+                    </button>
+                    
                     <div className="category-badge">
                         <span> {post.category}</span>
                     </div>
