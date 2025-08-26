@@ -30,7 +30,7 @@ const getPostsByCategory = async (req, res) => {
     const { category } = req.params;
 
     try {
-        const posts = await Post.find({ category }).populate("user", "username");
+        const posts = await Post.find({ category }).populate("user", "username profilePicture");
         res.status(200).json(posts);
     } catch (err) {
         console.error("Error fetching posts by category:", err);
@@ -40,7 +40,7 @@ const getPostsByCategory = async (req, res) => {
 
 const getAllPosts = async (req, res) => {
     try {
-        const posts = await Post.find().populate("user", "username").sort({ createdAt: -1});
+        const posts = await Post.find().populate("user", "username profilePicture").sort({ createdAt: -1});
         res.status(200).json(posts);
     } catch (error) {
         console.error("Error fetching all posts:", error);
@@ -50,7 +50,7 @@ const getAllPosts = async (req, res) => {
 
 const getSinglePost = async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id).populate("user", "username");
+        const post = await Post.findById(req.params.id).populate("user", "username profilePicture");
         if (!post) {
             return res.status(404).json({ message: "Post not found" });
         }

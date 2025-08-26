@@ -107,8 +107,8 @@ const Posts = () => {
                 <div className="heading-container">
                     <h1 className="posts-page-title">All Posts</h1>
 
-                    <button 
-                        className="back-button" 
+                    <button
+                        className="back-button"
                         onClick={() => navigate("/homepage")}
                     >
                         ⬅ Back to Home
@@ -164,14 +164,22 @@ const Posts = () => {
                                 <div className="post-card">
                                     <CommunityLabel community={post.community} />
 
-                                    <p className="post-username">
-                                        Posted by: {post.user?.username}
-                                    </p>
+                                    <div className="post-user">
+                                        <img
+                                            src={post.user?.profilePicture
+                                                ? `http://localhost:5000${post.user.profilePicture}`
+                                                : "/default-pic.png"}
+                                            alt={post.user?.username || "User"}
+                                            className="post-user-avatar"
+                                        />
+
+                                        <span className="post-username">{post.user?.username || "Anonymous"}</span>
+                                    </div>
 
                                     <p className="post-date">
                                         Posted: {formatPostDate(post.createdAt)}
                                     </p>
-                                    
+
                                     <h3>{post.title}</h3>
                                     {post.image && (
                                         <img
