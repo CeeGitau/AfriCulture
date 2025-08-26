@@ -13,6 +13,7 @@ const SinglePost = () => {
     const [post, setPost] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [newComment, setNewComment] = useState("");
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -29,6 +30,65 @@ const SinglePost = () => {
         };
         fetchPost();
     }, [postId]);
+
+    const handleLike = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch(`http://localhost:5000/api/posts/${postId}/like`, {
+                method: "PUT",
+                headers: { 
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({ userId: currentUser._id }),
+            });
+            const updated = await res.json();
+            setPost(updated);
+        } catch (err) {
+            console.error("Error liking post:", err);
+        }
+    };
+
+    const handleAddComment = async () => {
+        if (!newComment.trim()) return;
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch(`http://localhost:5000/api/posts/${postId}/comment`, {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    userId: currentUser._id,
+                    text: newComment
+                }),
+            });
+            const updated = await res.json();
+            setPost(updated);
+            setNewComment("");
+        } catch (err) {
+            console.error("Error adding comment:", err);
+        }
+    };
+
+    const handleDeleteComment = async (commentId) => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch(`http://localhost:5000/api/posts/${postId}/comment/${commentId}`, {
+                method: "DELETE",
+                headers: { 
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ userId: currentUser._id }),
+            });
+            const updated = await res.json();
+            setPost(updated);
+        } catch (err) {
+            console.error("Error deleting comment:", err);
+        }
+    };
 
     const formatPostDate = (createdAt) => {
         const postDate = new Date(createdAt);
@@ -53,6 +113,7 @@ const SinglePost = () => {
     if (!post) return <p>No post data available.</p>;
 
     const isAuthor = currentUser?._id === post.user?._id;
+    const isLiked = Array.isArray(post.likes) && post.likes.includes(currentUser?._id);
 
     return (
         <div>
@@ -91,6 +152,49 @@ const SinglePost = () => {
                                 Your browser does not support the audio element.
                             </audio>
                         )}
+
+                        <div className="likes-section">
+                            <button onClick={handleLike}>
+                                {isLiked ? "❤️ Unlike" : "🤍 Like"}
+                            </button>
+                            <span>{post.likes?.length || 0} like(s)</span>
+                        </div>
+
+                        {/* Comments Section */}
+                        <div className="comments-section">
+                            <h3>Comments</h3>
+                            {post.comments?.length > 0 ? (
+                                post.comments.map((comment, index) => (
+                                    <div key={comment._id || index} className="comment">
+                                        <strong>{comment.user?.username || "Anonymous"}:</strong> {comment.text}
+                                        <small> · {formatPostDate(comment.createdAt)}</small>
+                                        {comment.user?._id === currentUser?._id && (
+                                            <button 
+                                                className="delete-comment-btn"
+                                                onClick={() => handleDeleteComment(comment._id)}
+                                            >
+                                                ❌
+                                            </button>
+                                        )}
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No comments yet.</p>
+                            )}
+
+                            {currentUser && (
+                                <div className="add-comment">
+                                    <input
+                                        type="text"
+                                        placeholder="Add a comment..."
+                                        value={newComment}
+                                        onChange={(e) => setNewComment(e.target.value)}
+                                    />
+                                    <button onClick={handleAddComment}>Post</button>
+                                </div>
+                            )}
+                        </div>
+
                     </div>
                 </div>
             </div>

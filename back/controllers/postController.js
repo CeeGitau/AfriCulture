@@ -123,6 +123,80 @@ const deletePost = async (req, res) => {
     }
 };
 
+// Likes and Comments
+const toggleLikePost = async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+
+        if (!post) return res.status(404).json({ message: "Post not found" });
+
+        const userId = req.user.id;
+
+        if (post.likes.includes(userId)) {
+            // Unlike
+            post.likes = post.likes.filter(id => id.toString() !== userId);
+        } else {
+            // Like
+            post.likes.push(userId);
+        }
+
+        await post.save();
+        res.json(post);
+    } catch (error) {
+        console.error("Error liking post:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
+const addComment = async (req, res) => {
+    try {
+        const { text } = req.body;
+
+        if (!text) return res.status(400).json({ message: "Comment text required" });
+
+        const post = await Post.findById(req.params.id);
+
+        if (!post) return res.status(404).json({ message: "Post not found" });
+
+        const newComment = {
+            user: req.user.id,
+            text
+        };
+
+        post.comments.push(newComment);
+        await post.save();
+
+        res.status(201).json(post);
+    } catch (error) {
+        console.error("Error adding comment:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
+
+const deleteComment = async (req, res) => {
+    try {
+        const { commentId } = req.params;
+        const post = await Post.findById(req.params.id);
+
+        if (!post) return res.status(404).json({ message: "Post not found" });
+
+        const comment = post.comments.id(commentId);
+        if (!comment) return res.status(404).json({ message: "Comment not found" });
+
+        // Ensure only the owner of the comment or post owner can delete
+        if (comment.user.toString() !== req.user.id && post.user.toString() !== req.user.id) {
+            return res.status(403).json({ message: "Not authorized to delete this comment" });
+        }
+
+        comment.deleteOne();
+        await post.save();
+
+        res.json({ message: "Comment deleted", post });
+    } catch (error) {
+        console.error("Error deleting comment:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+};
 
 module.exports = {
     CreatePost,
@@ -132,4 +206,7 @@ module.exports = {
     getPostsByUser,
     updatePost,
     deletePost,
+    toggleLikePost,
+    addComment,
+    deleteComment
 };
