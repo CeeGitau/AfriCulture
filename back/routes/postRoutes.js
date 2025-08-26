@@ -9,8 +9,8 @@ router.delete('/:id', authMiddleware, deletePost);
 
 router.get('/category/:category', getPostsByCategory);
 router.get('/all-posts', getAllPosts);
-router.get('/:id', getSinglePost);
 router.get('/user/:userId', getPostsByUser);
+router.get('/:id', getSinglePost);
 
 module.exports = router;
 
