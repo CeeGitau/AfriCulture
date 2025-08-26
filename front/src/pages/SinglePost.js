@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import { FaTrash } from "react-icons/fa";
 import UserContext from "../contexts/UserContext";
 import Navbar from "../components/Navbar";
 import "../assets/css/SinglePost.css";
@@ -172,9 +173,13 @@ const SinglePost = () => {
                                             <button
                                                 className="delete-comment-btn"
                                                 title="Delete comment"
-                                                onClick={() => handleDeleteComment(comment._id)}
+                                                onClick={() => {
+                                                    if (window.confirm("Are you sure you want to delete your comment?")) {
+                                                        handleDeleteComment(comment._id);
+                                                    }
+                                                }}
                                             >
-                                                ❌
+                                                <FaTrash />
                                             </button>
                                         )}
                                     </div>
