@@ -36,7 +36,7 @@ const SinglePost = () => {
             const token = localStorage.getItem("token");
             const res = await fetch(`http://localhost:5000/api/posts/${postId}/like`, {
                 method: "PUT",
-                headers: { 
+                headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
@@ -55,7 +55,7 @@ const SinglePost = () => {
             const token = localStorage.getItem("token");
             const res = await fetch(`http://localhost:5000/api/posts/${postId}/comment`, {
                 method: "POST",
-                headers: { 
+                headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
@@ -77,14 +77,14 @@ const SinglePost = () => {
             const token = localStorage.getItem("token");
             const res = await fetch(`http://localhost:5000/api/posts/${postId}/comment/${commentId}`, {
                 method: "DELETE",
-                headers: { 
+                headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({ userId: currentUser._id }),
             });
-            const updated = await res.json();
-            setPost(updated);
+            const data = await res.json();
+            setPost(data.post);
         } catch (err) {
             console.error("Error deleting comment:", err);
         }
@@ -169,8 +169,9 @@ const SinglePost = () => {
                                         <strong>{comment.user?.username || "Anonymous"}:</strong> {comment.text}
                                         <small> · {formatPostDate(comment.createdAt)}</small>
                                         {comment.user?._id === currentUser?._id && (
-                                            <button 
+                                            <button
                                                 className="delete-comment-btn"
+                                                title="Delete comment"
                                                 onClick={() => handleDeleteComment(comment._id)}
                                             >
                                                 ❌
