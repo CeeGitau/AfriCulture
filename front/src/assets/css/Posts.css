@@ -78,17 +78,6 @@
     min-height: 420px; 
 }
 
-.post-community {
-    display: inline-block;
-    background-color: #e1ecf4; 
-    color: #0366d6; 
-    font-size: 12px;
-    font-weight: 500;
-    padding: 3px 8px;
-    border-radius: 2em; 
-    margin-bottom: 8px;
-}
-
 .post-user {
   display: flex;
   align-items: center;

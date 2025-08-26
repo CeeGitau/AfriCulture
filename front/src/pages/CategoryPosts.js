@@ -166,7 +166,19 @@ const CategoryPosts = () => {
                             >
                                 <div className="post-card">
                                     <CommunityLabel community={post.community} />
-                                    <p className="post-username">Posted by: {post.user?.username}</p>
+
+                                    <div className="post-user">
+                                        <img
+                                            src={post.user?.profilePicture
+                                                ? `http://localhost:5000${post.user.profilePicture}`
+                                                : "/default-pic.png"}
+                                            alt={post.user?.username || "User"}
+                                            className="post-user-avatar"
+                                        />
+
+                                        <span className="post-username">{post.user?.username || "Anonymous"}</span>
+                                    </div>
+
                                     <p className="post-date">Posted: {formatPostDate(post.createdAt)}</p>
                                     <h3>{post.title}</h3>
                                     {post.image && (
