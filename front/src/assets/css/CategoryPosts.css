@@ -136,3 +136,18 @@
     width: 100%;
     margin-top: 1rem;
 }
+
+.post-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.post-stats .likes,
+.post-stats .comments {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}

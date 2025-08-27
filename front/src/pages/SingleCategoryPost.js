@@ -164,51 +164,51 @@ const SingleCategoryPost = () => {
                         )}
 
                         <div className="likes-section">
-                                                    <button onClick={handleLike}>
-                                                        {isLiked ? "❤️" : "🤍"}
-                                                    </button>
-                                                    <span>{post.likes?.length || 0}</span>
-                                                </div>
-                        
-                                                {/* Comments Section */}
-                                                <div className="comments-section">
-                                                    <h3>Comments</h3>
-                                                    {post.comments?.length > 0 ? (
-                                                        post.comments.map((comment, index) => (
-                                                            <div key={comment._id || index} className="comment">
-                                                                <strong>{comment.user?.username || "Anonymous"}:</strong> {comment.text}
-                                                                <small> · {formatPostDate(comment.createdAt)}</small>
-                                                                {comment.user?._id === currentUser?._id && (
-                                                                    <button
-                                                                        className="delete-comment-btn"
-                                                                        title="Delete comment"
-                                                                        onClick={() => {
-                                                                            if (window.confirm("Are you sure you want to delete your comment?")) {
-                                                                                handleDeleteComment(comment._id);
-                                                                            }
-                                                                        }}
-                                                                    >
-                                                                        <FaTrash />
-                                                                    </button>
-                                                                )}
-                                                            </div>
-                                                        ))
-                                                    ) : (
-                                                        <p>No comments yet.</p>
-                                                    )}
-                        
-                                                    {currentUser && (
-                                                        <div className="add-comment">
-                                                            <input
-                                                                type="text"
-                                                                placeholder="Add a comment..."
-                                                                value={newComment}
-                                                                onChange={(e) => setNewComment(e.target.value)}
-                                                            />
-                                                            <button onClick={handleAddComment}>Post</button>
-                                                        </div>
-                                                    )}
-                                                </div>
+                            <button onClick={handleLike}>
+                                {isLiked ? "❤️" : "🤍"}
+                            </button>
+                            <span>{post.likes?.length || 0}</span>
+                        </div>
+
+                        {/* Comments Section */}
+                        <div className="comments-section">
+                            <h3>Comments</h3>
+                            {post.comments?.length > 0 ? (
+                                post.comments.map((comment, index) => (
+                                    <div key={comment._id || index} className="comment">
+                                        <strong>{comment.user?.username || "Anonymous"}:</strong> {comment.text}
+                                        <small> · {formatPostDate(comment.createdAt)}</small>
+                                        {comment.user?._id === currentUser?._id && (
+                                            <button
+                                                className="delete-comment-btn"
+                                                title="Delete comment"
+                                                onClick={() => {
+                                                    if (window.confirm("Are you sure you want to delete your comment?")) {
+                                                        handleDeleteComment(comment._id);
+                                                    }
+                                                }}
+                                            >
+                                                <FaTrash />
+                                            </button>
+                                        )}
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No comments yet.</p>
+                            )}
+
+                            {currentUser && (
+                                <div className="add-comment">
+                                    <input
+                                        type="text"
+                                        placeholder="Add a comment..."
+                                        value={newComment}
+                                        onChange={(e) => setNewComment(e.target.value)}
+                                    />
+                                    <button onClick={handleAddComment}>Post</button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -194,6 +194,13 @@ const CategoryPosts = () => {
                                             Your browser does not support the audio element
                                         </audio>
                                     )}
+
+                                    {/* Likes & Comments count */}
+                                    <div className="post-stats">
+                                        <span className="likes">❤️ {post.likes?.length || 0}</span>
+                                        <span className="comments">💬 {post.comments?.length || 0}</span>
+                                    </div>
+                                    
                                 </div>
                             </Link>
                         ))}
