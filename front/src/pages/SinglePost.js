@@ -44,7 +44,7 @@ const SinglePost = () => {
                 body: JSON.stringify({ userId: currentUser._id }),
             });
             const updated = await res.json();
-            setPost(updated);
+            setPost(updated.post);
         } catch (err) {
             console.error("Error liking post:", err);
         }
@@ -66,7 +66,7 @@ const SinglePost = () => {
                 }),
             });
             const updated = await res.json();
-            setPost(updated);
+            setPost(updated.post);
             setNewComment("");
         } catch (err) {
             console.error("Error adding comment:", err);
@@ -156,9 +156,9 @@ const SinglePost = () => {
 
                         <div className="likes-section">
                             <button onClick={handleLike}>
-                                {isLiked ? "❤️ Unlike" : "🤍 Like"}
+                                {isLiked ? "❤️" : "🤍"}
                             </button>
-                            <span>{post.likes?.length || 0} like(s)</span>
+                            <span>{post.likes?.length || 0}</span>
                         </div>
 
                         {/* Comments Section */}

@@ -30,7 +30,7 @@ const getPostsByCategory = async (req, res) => {
     const { category } = req.params;
 
     try {
-        const posts = await Post.find({ category }).populate("user", "username profilePicture");
+        const posts = await Post.find({ category }).populate("user", "username profilePicture").populate("user", "username profilePicture").populate("comments.user", "username");
         res.status(200).json(posts);
     } catch (err) {
         console.error("Error fetching posts by category:", err);
@@ -124,6 +124,13 @@ const deletePost = async (req, res) => {
     }
 };
 
+// helper to repopulate post
+const populatePost = (postId) => {
+    return Post.findById(postId)
+        .populate("user", "username profilePicture")
+        .populate("comments.user", "username");
+};
+
 // Likes and Comments
 const toggleLikePost = async (req, res) => {
     try {
@@ -142,7 +149,9 @@ const toggleLikePost = async (req, res) => {
         }
 
         await post.save();
-        res.json(post);
+
+        const populatedPost = await populatePost(post._id);
+        res.json({ post: populatedPost });
     } catch (error) {
         console.error("Error liking post:", error);
         res.status(500).json({ message: "Server error" });
@@ -167,6 +176,7 @@ const addComment = async (req, res) => {
         post.comments.push(newComment);
         await post.save();
 
+        const populatedPost = await populatePost(post._id);
         res.status(201).json(post);
     } catch (error) {
         console.error("Error adding comment:", error);
@@ -192,6 +202,7 @@ const deleteComment = async (req, res) => {
         comment.deleteOne();
         await post.save();
 
+        const populatedPost = await populatePost(post._id);
         res.json({ message: "Comment deleted", post });
     } catch (error) {
         console.error("Error deleting comment:", error);
