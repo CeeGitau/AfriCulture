@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import UserContext from "../contexts/UserContext";
 import Navbar from "../components/Navbar";
 import "../assets/css/AddPost.css";
@@ -92,7 +93,7 @@ const AddPost = () => {
                 const base64Image = await convertFileToBase64(file);
                 setImage(base64Image);
             } catch (error) {
-                alert("Image upload failed");
+                toast.error("Image upload failed");
             }
         }
     };
@@ -104,7 +105,7 @@ const AddPost = () => {
                 const base64Audio = await convertFileToBase64(file);
                 setAudio(base64Audio);
             } catch (error) {
-                alert("Audio upload failed");
+                toast.error("Audio upload failed");
             }
         }
     };
@@ -136,14 +137,14 @@ const AddPost = () => {
             const data = await res.json();
 
             if (res.ok) {
-                alert("Post submitted!");
+                toast.error("Post submitted!");
                 navigate("/all-posts");
             } else {
-                alert(data.message || "Failed to submit post");
+                toast.error(data.message || "Failed to submit post");
             }
         } catch (error) {
+            toast.error("An error occured while submitting the post");
             console.error("Submission error:", error);
-            alert("An error occured while submitting the post");
         }
     };
 

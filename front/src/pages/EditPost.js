@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import "../assets/css/EditPost.css";
 
@@ -52,12 +53,13 @@ const EditPost = () => {
 
       const data = await res.json();
       if (res.ok) {
-        alert("Post updated successfully!");
+        toast.success("Post updated successfully!");
         navigate(`/single-post/${id}`);
       } else {
-        alert(data.message || "Failed to update post");
+        toast.error(data.message || "Failed to update post");
       }
     } catch (error) {
+      toast.error("Something went wrong. Please try again");
       console.error("Error updating post:", error);
     }
   };

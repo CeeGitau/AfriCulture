@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import defaultPic from "../assets/images/default-pic.png";
@@ -31,6 +32,7 @@ const Profile = () => {
                     console.error(data.message);
                 }
             } catch (error) {
+                toast.error("Error fetching profile");
                 console.error("Error fetching profile:", error);
             }
         };
@@ -42,9 +44,11 @@ const Profile = () => {
                 if (res.ok) {
                     setMyPosts(data);
                 } else {
+                    toast.error("Failed to fetch user posts");
                     console.error("Failed to fetch user posts");
                 }
             } catch (error) {
+                toast.error("Something went wrong.Please try again");
                 console.error("Error fetching posts:", error);
             }
         };

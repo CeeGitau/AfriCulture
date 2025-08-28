@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import UserContext from "../contexts/UserContext";
 import "../assets/css/logout.css";
 
@@ -12,11 +13,14 @@ const Logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         setUser(null);
+
+        toast.success("Logout successful");
         navigate("/login");
     }
 
     const cancelLogout = () => {
         setShowPrompt(false);
+        toast.info("Logout cancelled");
         navigate("/homepage");
     }
 

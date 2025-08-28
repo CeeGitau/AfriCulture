@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import defaultPic from "../assets/images/default-pic.png";
 import "../assets/css/EditProfile.css";
@@ -75,12 +76,13 @@ const EditPost = () => {
             const data = await res.json();
 
             if (res.ok) {
-                alert("Profile updated!");
-                navigate("/profile");
+                toast.success("Profile updated!");
+                setTimeout(() => navigate("/profile"), 1000);
             } else {
-                alert(data.message || "Failed to update profile");
+                toast.error(data.message || "Failed to update profile");
             }
         } catch (error) {
+            toast.error("Something went wrong. Please try again");
             console.error("Error updating profile:", error);
         } finally {
             setLoading(false);

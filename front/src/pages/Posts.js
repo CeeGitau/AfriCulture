@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import CommunityLabel from "../components/CommunityLabel";
 import "../assets/css/Posts.css";
@@ -66,6 +67,7 @@ const Posts = () => {
                 setPosts(data);
             } catch (error) {
                 setError(error.message);
+                toast.error(error.message || "Something went wrong while fetching posts");
             } finally {
                 setLoading(false);
             }
