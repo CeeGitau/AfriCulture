@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Navbar from "../components/Navbar";
+import ConfirmDialog from "../components/ConfirmDialog";
 import defaultPic from "../assets/images/default-pic.png";
 import "../assets/css/profile.css";
 
@@ -11,6 +12,8 @@ const Profile = () => {
     const { user } = useContext(UserContext);
     const [profile, setProfile] = useState(null);
     const [myPosts, setMyPosts] = useState([]);
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [selectedPostId, setSelectedPostId] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -56,24 +59,28 @@ const Profile = () => {
         fetchProfile();
     }, []);
 
-    const handleDelete = async (postId) => {
-        if (!window.confirm("Are you sure you want to delete this post?")) return;
+    const handleDelete = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:5000/api/posts/${postId}`, {
+            const res = await fetch(`http://localhost:5000/api/posts/${selectedPostId}`, {
                 method: "DELETE",
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             if (res.ok) {
-                setMyPosts(myPosts.filter(post => post._id !== postId));
+                setMyPosts(myPosts.filter((post) => post._id !== selectedPostId));
+                toast.success("Post deleted successfully");
             } else {
-                console.error("Failed to delete post");
+                toast.error("Failed to delete post");
             }
         } catch (error) {
+            toast.error("Error deleting post");
             console.error("Error deleting post:", error);
+        } finally {
+            setShowConfirm(false);
+            setSelectedPostId(null);
         }
     };
 
@@ -86,7 +93,7 @@ const Profile = () => {
                 <div className="profile-meta-content">
                     <img
                         className="profile-pic"
-                        src={profile.profilePicture ? `http://localhost:5000${profile.profilePicture}` : defaultPic} 
+                        src={profile.profilePicture ? `http://localhost:5000${profile.profilePicture}` : defaultPic}
                         alt="Profile"
                     />
 
@@ -121,9 +128,12 @@ const Profile = () => {
                                     >
                                         <FaEdit style={{ color: "blue", fontSize: "18px" }} />
                                     </Link>
-                                    
+
                                     <button
-                                        onClick={() => handleDelete(post._id)}
+                                        onClick={() => {
+                                            setSelectedPostId(post._id);
+                                            setShowConfirm(true);
+                                        }}
                                         title="Delete Post"
                                         className="delete-icon"
                                     >
@@ -133,10 +143,19 @@ const Profile = () => {
                             </li>
                         ))}
                     </ul>
-
                 )}
             </div>
 
+            {showConfirm && (
+                <ConfirmDialog
+                    message="Are you sure you want to delete this post?"
+                    onConfirm={handleDelete}
+                    onCancel={() => {
+                        setShowConfirm(false);
+                        setSelectedPostId(null);
+                    }}
+                />
+            )}
         </div>
     );
 };
