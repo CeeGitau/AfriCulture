@@ -14,6 +14,7 @@ const Profile = () => {
     const [myPosts, setMyPosts] = useState([]);
     const [showConfirm, setShowConfirm] = useState(false);
     const [selectedPostId, setSelectedPostId] = useState(null);
+    const [selectedPostTitle, setSelectedPostTitle] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -132,6 +133,7 @@ const Profile = () => {
                                     <button
                                         onClick={() => {
                                             setSelectedPostId(post._id);
+                                            setSelectedPostTitle(post.title);
                                             setShowConfirm(true);
                                         }}
                                         title="Delete Post"
@@ -148,7 +150,7 @@ const Profile = () => {
 
             {showConfirm && (
                 <ConfirmDialog
-                    message="Are you sure you want to delete this post?"
+                    message={`Are you sure you want to delete the post "${selectedPostTitle}"?`}
                     onConfirm={handleDelete}
                     onCancel={() => {
                         setShowConfirm(false);
