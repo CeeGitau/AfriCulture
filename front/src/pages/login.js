@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import UserContext from "../contexts/UserContext";
 import "../assets/css/login.css";
 
@@ -26,16 +26,19 @@ const Login = () => {
             const data = await res.json();
 
             if (res.ok) {
+                toast.success(data.message || "Login succesful");
+
                 setUser(data.user);
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", data.token);
-                navigate("/homepage");
+
+                setTimeout(() => navigate("/homepage"), 1000);
             } else {
-                alert(data.message || "Login failed");
+                toast.error(data.message || "Login failed");
             }
         } catch (error) {
+            toast.error("Something went wrong. Please try again");
             console.error("Login error:", error);
-            alert("An error occurred. Please try again");
         }
     };
 

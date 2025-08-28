@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import UserContext from "../contexts/UserContext";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import "../assets/css/register.css";
 
 const Register = () => {
@@ -26,14 +26,18 @@ const Register = () => {
       const data = await res.json();
 
       if (res.ok) {
+        toast.success(data.message || "Registration successful");
+
         setUser(data.user);
         localStorage.setItem("user", JSON.stringify(data.user));
         localStorage.setItem("token", data.token);
-        navigate("/homepage");
+
+        setTimeout(() => navigate("/homepage"), 1000) ;
       } else {
-        alert(data.message || "Registration failed");
+        toast.error(data.message || "Registration failed");
       }
     } catch (err) {
+      toast.error("Something went wrong. Please try again");
       console.error("Registration error:", err);
     }
   };

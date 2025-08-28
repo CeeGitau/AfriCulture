@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Landing from "./pages/landing";
 import Register from "./pages/register";
 import Login from "./pages/login";
@@ -69,9 +71,13 @@ function App() {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <RouterProvider router={router} />
-    </UserContext.Provider>
+    <>
+      <UserContext.Provider value={{ user, setUser }}>
+        <RouterProvider router={router} />
+      </UserContext.Provider>
+
+      <ToastContainer position="top-right" autoClose={3000} />
+    </>
   );
 }
 
