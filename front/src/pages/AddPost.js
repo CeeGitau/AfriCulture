@@ -195,7 +195,7 @@ const AddPost = () => {
                     />
 
                     <label>Upload Image</label>
-                    <input type="file" accept="image/*" onChange={handleImageUpload} />
+                    <input type="file" accept="image/*" onChange={handleImageUpload} required />
                     {image && (
                         <div className="image-preview">
                             <img src={image} alt="Preview" className="preview-img" />
