@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import UserContext from "../contexts/UserContext";
+import ConfirmDialog from "../components/ConfirmDialog.js";
 import Navbar from "../components/Navbar";
 import "../assets/css/AddPost.css";
 
 const AddPost = () => {
     const [image, setImage] = useState("");
     const [audio, setAudio] = useState("");
+    const [showConfirm, setShowConfirm] = useState(false);
     const [values, setValues] = useState({
         category: "",
         title: "",
@@ -148,6 +150,11 @@ const AddPost = () => {
         }
     };
 
+    const handleCancel = () => {
+        setShowConfirm(false);
+        navigate("/homepage");
+    }
+
     return (
         <>
             <Navbar />
@@ -202,9 +209,19 @@ const AddPost = () => {
 
                     <div className="button-container">
                         <button type="submit" className="submit-button">Post</button>
-                        <button type="button" className="cancel-button">Cancel</button>
+                        <button type="button" className="cancel-button" onClick={() => setShowConfirm(true)}>Cancel</button>
                     </div>
                 </form>
+
+                {showConfirm && (
+                <ConfirmDialog
+                    message={"Are you sure you want to delete this draft?"}
+                    onConfirm={handleCancel}
+                    onCancel={() => {
+                        setShowConfirm(false);
+                    }}
+                />
+            )}
             </div>
         </>
     );
