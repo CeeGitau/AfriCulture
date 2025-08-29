@@ -177,7 +177,7 @@ const addComment = async (req, res) => {
         await post.save();
 
         const populatedPost = await populatePost(post._id);
-        res.status(201).json(post);
+        res.status(201).json({ post: populatedPost }); 
     } catch (error) {
         console.error("Error adding comment:", error);
         res.status(500).json({ message: "Server error" });
@@ -203,7 +203,7 @@ const deleteComment = async (req, res) => {
         await post.save();
 
         const populatedPost = await populatePost(post._id);
-        res.json({ message: "Comment deleted", post });
+        res.json({ post: populatedPost });
     } catch (error) {
         console.error("Error deleting comment:", error);
         res.status(500).json({ message: "Server error" });

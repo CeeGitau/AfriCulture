@@ -174,9 +174,7 @@ const SinglePost = () => {
                                                 className="delete-comment-btn"
                                                 title="Delete comment"
                                                 onClick={() => {
-                                                    if (window.confirm("Are you sure you want to delete your comment?")) {
-                                                        handleDeleteComment(comment._id);
-                                                    }
+                                                    handleDeleteComment(comment._id);
                                                 }}
                                             >
                                                 <FaTrash />
