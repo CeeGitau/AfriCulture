@@ -95,6 +95,7 @@ const Profile = () => {
                     <img
                         className="profile-pic"
                         src={profile.profilePicture ? `http://localhost:5000${profile.profilePicture}` : defaultPic}
+                        onError={(e) => { e.target.src = defaultPic; }}
                         alt="Profile"
                     />
 
