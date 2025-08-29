@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
+import Loader from "../components/Loader";
 import defaultPic from "../assets/images/default-pic.png";
 import "../assets/css/EditProfile.css";
 
@@ -12,6 +13,7 @@ const EditPost = () => {
     const [newPassword, setNewPassword] = useState("");
     const [preview, setPreview] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [fetching, setFetching] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,6 +37,9 @@ const EditPost = () => {
                 }
             } catch (err) {
                 console.error("Error fetching profile:", err);
+            }
+            finally {
+                setFetching(false);
             }
         };
         fetchProfile();
@@ -103,48 +108,54 @@ const EditPost = () => {
             <div className="profile-page">
                 <h2>Edit Profile</h2>
 
-                <form onSubmit={handleSubmit} className="edit-profile-form">
-                    <div className="profile-pic-section">
-                        <img
-                            src={preview || defaultPic}
-                            alt="Profile Preview"
-                            className="profile-pic"
-                        />
-                        <input type="file" accept="image/*" onChange={handleFileChange} />
-                    </div>
+                {
+                    fetching ? (
+                        <Loader />
+                    ) : (
+                        <form onSubmit={handleSubmit} className="edit-profile-form">
+                            <div className="profile-pic-section">
+                                <img
+                                    src={preview || defaultPic}
+                                    alt="Profile Preview"
+                                    className="profile-pic"
+                                />
+                                <input type="file" accept="image/*" onChange={handleFileChange} />
+                            </div>
 
-                    <div>
-                        <label>Username</label>
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                    </div>
+                            <div>
+                                <label>Username</label>
+                                <input
+                                    type="text"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-                    <div>
-                        <label>Current Password</label>
-                        <input
-                            type="password"
-                            value={currentPassword}
-                            onChange={(e) => setCurrentPassword(e.target.value)}
-                        />
-                    </div>
+                            <div>
+                                <label>Current Password</label>
+                                <input
+                                    type="password"
+                                    value={currentPassword}
+                                    onChange={(e) => setCurrentPassword(e.target.value)}
+                                />
+                            </div>
 
-                    <div>
-                        <label>New Password</label>
-                        <input
-                            type="password"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                        />
-                    </div>
+                            <div>
+                                <label>New Password</label>
+                                <input
+                                    type="password"
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                />
+                            </div>
 
-                    <button type="submit" disabled={loading}>
-                        {loading ? "Saving..." : "Save Changes"}
-                    </button>
-                </form>
+                            <button type="submit" disabled={loading}>
+                                {loading ? "Saving..." : "Save Changes"}
+                            </button>
+                        </form>
+                    )
+                }
             </div>
         </div>
     );

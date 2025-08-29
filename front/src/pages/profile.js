@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Navbar from "../components/Navbar";
+import Loader from "../components/Loader";
 import ConfirmDialog from "../components/ConfirmDialog";
 import defaultPic from "../assets/images/default-pic.png";
 import "../assets/css/profile.css";
@@ -15,6 +16,7 @@ const Profile = () => {
     const [showConfirm, setShowConfirm] = useState(false);
     const [selectedPostId, setSelectedPostId] = useState(null);
     const [selectedPostTitle, setSelectedPostTitle] = useState(null);
+    const [loadingPosts, setLoadingPosts] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -54,6 +56,8 @@ const Profile = () => {
             } catch (error) {
                 toast.error("Something went wrong.Please try again");
                 console.error("Error fetching posts:", error);
+            } finally {
+                setLoadingPosts(false);
             }
         };
 
@@ -85,7 +89,7 @@ const Profile = () => {
         }
     };
 
-    if (!profile) return <p>Loading profile...</p>;
+    if (!profile) return <Loader />;
 
     return (
         <div >
@@ -110,7 +114,9 @@ const Profile = () => {
 
             <div className="my-posts">
                 <h3>My Posts</h3>
-                {myPosts.length === 0 ? (
+                {loadingPosts ? (
+                    <Loader />
+                ) : myPosts.length === 0 ? (
                     <p>You haven't posted anything yet.</p>
                 ) : (
                     <ul className="my-posts-list">

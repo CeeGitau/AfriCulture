@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import CommunityLabel from "../components/CommunityLabel";
+import Loader from "../components/Loader";
 import "../assets/css/CategoryPosts.css";
 
 const CategoryPosts = () => {
@@ -135,7 +136,7 @@ const CategoryPosts = () => {
                 </div>
 
                 {loading ? (
-                    <p>Loading...</p>
+                    <Loader />
                 ) : error ? (
                     <p className="error-text">{error}</p>
                 ) : filteredPosts.length === 0 ? (

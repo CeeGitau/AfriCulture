@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
+import Loader from "../components/Loader";
 import "../assets/css/EditPost.css";
 
 const EditPost = () => {
@@ -64,7 +65,7 @@ const EditPost = () => {
     }
   };
 
-  if (loading) return <p>Loading post...</p>;
+  if (loading) return <Loader />;
   if (!post) return <p>Post not found</p>;
 
   const formatPostDate = (createdAt) => {

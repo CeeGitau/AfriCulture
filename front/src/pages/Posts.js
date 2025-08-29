@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import CommunityLabel from "../components/CommunityLabel";
+import Loader from "../components/Loader";
 import "../assets/css/Posts.css";
 
 const Posts = () => {
@@ -134,7 +135,7 @@ const Posts = () => {
                 </div>
 
                 {loading ? (
-                    <p>Loading...</p>
+                    <Loader />
                 ) : error ? (
                     <p className="error-text">{error}</p>
                 ) : filteredPosts.length === 0 ? (
