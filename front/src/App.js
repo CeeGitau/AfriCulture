@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Loader from "./components/Loader";
 import Landing from "./pages/landing";
 import Register from "./pages/register";
 import Login from "./pages/login";
@@ -37,10 +38,15 @@ const router = createBrowserRouter([
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const token = localStorage.getItem("token");
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser)); 
+    }
 
     if (token) {
       fetch("http://localhost:5000/api/auth", {
@@ -55,29 +61,27 @@ function App() {
             setUser(data.user);
             localStorage.setItem("user", JSON.stringify(data.user));
           } else {
+            setUser(null);
             localStorage.removeItem("user");
             localStorage.removeItem("token");
           }
         })
         .catch(err => {
           console.error("Auth check failed:", err);
-          localStorage.removeItem("user");
-          localStorage.removeItem("token");
-        });
-    } else if (storedUser) {
-      // fallback — likely outdated but still useful as a last resort
-      setUser(JSON.parse(storedUser));
+        })
+        .finally(() => setLoading(false));
+    } else {
+      setLoading(false);
     }
   }, []);
 
+  if (loading) return <Loader />;
+
   return (
-    <>
       <UserContext.Provider value={{ user, setUser }}>
         <RouterProvider router={router} />
+        <ToastContainer position="top-right" autoClose={3000} />
       </UserContext.Provider>
-
-      <ToastContainer position="top-right" autoClose={3000} />
-    </>
   );
 }
 
