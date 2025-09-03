@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import UserContext from "../contexts/UserContext";
@@ -8,7 +8,7 @@ import "../assets/css/AddPost.css";
 
 const AddPost = () => {
     const [image, setImage] = useState("");
-    const [audio, setAudio] = useState("");
+    // const [audio, setAudio] = useState("");
     const [showConfirm, setShowConfirm] = useState(false);
     const [values, setValues] = useState({
         category: "",
@@ -100,17 +100,17 @@ const AddPost = () => {
         }
     };
 
-    const handleAudioUpload = async (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            try {
-                const base64Audio = await convertFileToBase64(file);
-                setAudio(base64Audio);
-            } catch (error) {
-                toast.error("Audio upload failed");
-            }
-        }
-    };
+    // const handleAudioUpload = async (e) => {
+    //     const file = e.target.files[0];
+    //     if (file) {
+    //         try {
+    //             const base64Audio = await convertFileToBase64(file);
+    //             setAudio(base64Audio);
+    //         } catch (error) {
+    //             toast.error("Audio upload failed");
+    //         }
+    //     }
+    // };
 
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -122,7 +122,7 @@ const AddPost = () => {
         const postData = {
             ...values,
             image,
-            audio,
+            // audio,
             user: user._id,
         };
 
@@ -139,7 +139,7 @@ const AddPost = () => {
             const data = await res.json();
 
             if (res.ok) {
-                toast.error("Post submitted!");
+                toast.success("Post submitted!");
                 navigate("/all-posts");
             } else {
                 toast.error(data.message || "Failed to submit post");
@@ -202,8 +202,8 @@ const AddPost = () => {
                         </div>
                     )}
 
-                    <label>Upload Audio (optional)</label>
-                    <input type="file" accept="audio/*" onChange={handleAudioUpload} />
+                    {/* <label>Upload Audio (optional)</label>
+                    <input type="file" accept="audio/*,video/mp4" onChange={handleAudioUpload} /> */}
 
                     <label>Author: {user.username}</label>
 
