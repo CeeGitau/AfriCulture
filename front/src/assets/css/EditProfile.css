@@ -37,7 +37,23 @@
   border: 1px solid #ccc;
 }
 
-.edit-profile-form button {
+/* Buttons */
+.edit-profile-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.edit-post-actions button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease-in-out;
+}
+
+.edit-profile-actions .submit-btn {
   background: #007bff;
   color: white;
   padding: 0.7rem;
@@ -46,8 +62,21 @@
   cursor: pointer;
 }
 
-.edit-profile-form button:hover {
+.edit-profile-actions .submit-btn:hover {
     background-color: #0056b3;
+}
+
+.edit-profile-actions .cancel-btn {
+  background: #f4f4f4;
+  color: #333;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.edit-profile-actions .cancel-btn:hover {
+  background: #e2e2e2;
 }
 
 .edit-profile-form button:disabled {

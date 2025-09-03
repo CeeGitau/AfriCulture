@@ -85,19 +85,16 @@ const EditPost = () => {
 
         {/* Show non-editable details */}
         <div className="post-details">
-          <p><strong>Title:</strong> {post.title}</p>
-          <p><strong>Category:</strong> {post.category}</p>
-          <p><strong>Community:</strong> {post.community}</p>
-          <p><strong>Author:</strong> {post.user?.username}</p>
-          <p><strong>Date:</strong> {formatPostDate(post.createdAt)}</p>
+          <p className="post-title">{post.title}</p>
+          <p className="post-category">{post.category}</p>
+          <p className="post-community">{post.community}</p>
+          <div className="post-meta">
+            <span>{post.user?.username}</span>
+            <span>{formatPostDate(post.createdAt)}</span>
+          </div>
 
           {post.image && <img src={post.image} alt="Post visual" />}
-          {post.audio && (
-            <audio controls>
-              <source src={post.audio} type="audio/mpeg" />
-              Your browser does not support the audio element.
-            </audio>
-          )}
+
         </div>
 
         {/* Editable content */}

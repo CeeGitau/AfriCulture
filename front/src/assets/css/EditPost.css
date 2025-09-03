@@ -14,6 +14,51 @@
   color: #333;
 }
 
+.post-details {
+  /* background: #faf9f7; */
+  padding: 1rem;
+  border-radius: 12px;
+  /* box-shadow: 0 2px 6px rgba(0,0,0,0.08); */
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.post-title {
+  color: #681f1f;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.post-category {
+  color: #444;
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0.25rem 0;
+}
+
+.post-community {
+  color: #333;
+  font-size: 1rem;
+  margin: 0.25rem 0 0.75rem 0;
+  font-weight: 500;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #777;
+  font-size: 0.95rem;
+  margin-top: 0.75rem;
+}
+
+.post-details img {
+  width: 100%;
+  height: 250px; 
+  object-fit: contain;
+  border-radius: 10px;
+  margin-top: 0.75rem;
+}
+
 .edit-post-form {
   display: flex;
   flex-direction: column;

@@ -150,9 +150,19 @@ const EditPost = () => {
                                 />
                             </div>
 
-                            <button type="submit" disabled={loading}>
-                                {loading ? "Saving..." : "Save Changes"}
-                            </button>
+                            <div className="edit-profile-actions">
+                                <button type="submit" className="submit-btn" disabled={loading}>
+                                    {loading ? "Saving..." : "Save Changes"}
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="cancel-btn"
+                                    onClick={() => navigate(-1)}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
                         </form>
                     )
                 }
