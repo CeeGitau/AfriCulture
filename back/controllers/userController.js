@@ -62,47 +62,75 @@ const Auth = async (req, res) => {
 };
 
 const UpdateProfile = async (req, res) => {
-    try {
-        const userId = req.user.id;
-        const { username, currentPassword, newPassword } = req.body;
+  try {
+    const userId = req.user.id;
+    const {
+      username,
+      currentPassword,
+      newPassword,
+      confirmNewPassword,   // expect this from the client
+      confirmPassword       // allow this too, just in case the client uses a different key
+    } = req.body;
 
-        const user = await User.findById(userId);
-        if (!user) return res.status(404).json({ message: "User not found" });
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-        // Update username
-        if (username) {
-            user.username = username;
-        }
-
-        // Handle password change
-        if (req.file) {
-            user.profilePicture = `/uploads/${req.file.filename}`;
-        }
-
-        // Handle password change
-        if (currentPassword && newPassword) {
-            const isMatch = await bcrypt.compare(currentPassword, user.password);
-            if (!isMatch) {
-                return res.status(400).json({ message: "Current password is incorrect" });
-            }
-            user.password = await bcrypt.hash(newPassword, 10);
-        }
-
-        await user.save();
-
-        res.status(200).json({ 
-            message: "Profile updated successfully",
-            user: {
-                _id: user._id,
-                username: user.username,
-                email: user.email,
-                profilePicture: user.profilePicture
-            }
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server error", error });
+    // Update username (optional)
+    if (typeof username === "string" && username.trim()) {
+      user.username = username.trim();
     }
+
+    // Update profile picture (optional)
+    if (req.file) {
+      user.profilePicture = `/uploads/${req.file.filename}`;
+    }
+
+    // Password change (if any password field is present, require all)
+    const confirm = confirmNewPassword ?? confirmPassword;
+    const wantsPasswordChange = Boolean(currentPassword || newPassword || confirm);
+
+    if (wantsPasswordChange) {
+      // Require all three fields
+      if (!currentPassword || !newPassword || !confirm) {
+        return res.status(400).json({
+          message: "To change password, provide current password, new password, and confirm new password"
+        });
+      }
+
+      // Confirm match
+      if (newPassword !== confirm) {
+        return res.status(400).json({ message: "Confirm password does not match new password" });
+      }
+
+      if (currentPassword === newPassword) {
+        return res.status(400).json({ message: "New password must differ from current password" });
+      }
+
+      // Verify current password
+      const isMatch = await bcrypt.compare(currentPassword, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: "Current password is incorrect" });
+      }
+
+      // Set new password
+      user.password = await bcrypt.hash(newPassword, 10);
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Profile updated successfully",
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        profilePicture: user.profilePicture
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server error", error });
+  }
 };
 
 module.exports = {

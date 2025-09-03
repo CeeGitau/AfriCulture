@@ -11,6 +11,7 @@ const EditPost = () => {
     const [profilePicture, setProfilePicture] = useState(null);
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
+    const [confirmNewPassword, setConfirmNewPassword] = useState("");
     const [preview, setPreview] = useState(null);
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(true);
@@ -57,6 +58,12 @@ const EditPost = () => {
         e.preventDefault();
         setLoading(true);
 
+        if (newPassword && newPassword !== confirmNewPassword) {
+            toast.error("New password and confirm password do not match");
+            setLoading(false);
+            return;
+        }
+
         try {
             const token = localStorage.getItem("token");
             const formData = new FormData();
@@ -68,9 +75,10 @@ const EditPost = () => {
             if (currentPassword && newPassword) {
                 formData.append("currentPassword", currentPassword);
                 formData.append("newPassword", newPassword);
+                formData.append("confirmNewPassword", confirmNewPassword);
             }
 
-            const res = await fetch(`http://localhost:5000/api/users/${"me"}`, {
+            const res = await fetch(`http://localhost:5000/api/users/me`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -80,12 +88,17 @@ const EditPost = () => {
 
             const data = await res.json();
 
-            if (res.ok) {
-                toast.success("Profile updated!");
-                setTimeout(() => navigate("/profile"), 1000);
-            } else {
+            if (!res.ok) {
+                // Show backend error
                 toast.error(data.message || "Failed to update profile");
+                setLoading(false);
+                return;
             }
+
+            // Success
+            toast.success(data.message || "Profile updated!");
+            setTimeout(() => navigate("/profile"), 1000);
+
         } catch (error) {
             toast.error("Something went wrong. Please try again");
             console.error("Error updating profile:", error);
@@ -147,6 +160,15 @@ const EditPost = () => {
                                     type="password"
                                     value={newPassword}
                                     onChange={(e) => setNewPassword(e.target.value)}
+                                />
+                            </div>
+
+                            <div>
+                                <label>Confirm New Password</label>
+                                <input
+                                    type="password"
+                                    value={confirmNewPassword}
+                                    onChange={(e) => setConfirmNewPassword(e.target.value)}
                                 />
                             </div>
 
