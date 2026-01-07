@@ -1,0 +1,150 @@
+.edit-post-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.edit-post-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.post-details {
+  /* background: #faf9f7; */
+  padding: 1rem;
+  border-radius: 12px;
+  /* box-shadow: 0 2px 6px rgba(0,0,0,0.08); */
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.post-title {
+  color: #681f1f;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.post-category {
+  color: #444;
+  font-size: 1rem;
+  font-style: italic;
+  margin: 0.25rem 0;
+}
+
+.post-community {
+  color: #333;
+  font-size: 1rem;
+  margin: 0.25rem 0 0.75rem 0;
+  font-weight: 500;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  color: #777;
+  font-size: 0.95rem;
+  margin-top: 0.75rem;
+}
+
+.post-details img {
+  width: 100%;
+  height: 250px; 
+  object-fit: contain;
+  border-radius: 10px;
+  margin-top: 0.75rem;
+}
+
+.edit-post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.edit-post-form label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #444;
+  display: block;
+  font-size: 1rem;
+}
+
+.edit-post-form textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.edit-post-form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.25);
+}
+
+/* Buttons */
+.edit-post-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.edit-post-actions button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease-in-out;
+}
+
+.edit-post-actions button:active {
+  transform: scale(0.98);
+}
+
+.edit-post-actions .save-btn {
+  background: #007bff;
+  color: #fff;
+}
+
+.edit-post-actions .save-btn:hover {
+  background: #0056b3;
+}
+
+.edit-post-actions .cancel-btn {
+  background: #f4f4f4;
+  color: #333;
+}
+
+.edit-post-actions .cancel-btn:hover {
+  background: #e2e2e2;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .edit-post-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .edit-post-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .edit-post-actions {
+    flex-direction: column;
+  }
+
+  .edit-post-actions button {
+    width: 100%;
+  }
+}

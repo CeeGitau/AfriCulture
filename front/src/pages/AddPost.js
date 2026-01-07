@@ -1,0 +1,231 @@
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import UserContext from "../contexts/UserContext";
+import ConfirmDialog from "../components/ConfirmDialog.js";
+import Navbar from "../components/Navbar";
+import API_BASE from "../utils/api.js";
+import "../assets/css/AddPost.css";
+
+const AddPost = () => {
+    const [image, setImage] = useState("");
+    // const [audio, setAudio] = useState("");
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [values, setValues] = useState({
+        category: "",
+        title: "",
+        content: "",
+        community: "",
+    });
+
+    const { user } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    const categories = [
+        "Food & Cuisine",
+        "Clothing & Fashion",
+        "Music & Dance",
+        "Languages & Culture",
+        "Festivals & Holidays",
+        "Arts & Handicrafts",
+        "Literature & Poetry",
+        "Customs & Traditions",
+        "Religious Practices & Beliefs",
+        "Sports & Games",
+        "Architecture & Design",
+        "Films & Theatre",
+        "Etiquette & Social Norms",
+    ];
+
+    const communities = [
+        "Kikuyu",
+        "Luhya",
+        "Kalenjin",
+        "Luo",
+        "Kamba",
+        "Somali",
+        "Kisii",
+        "Mijikenda",
+        "Maasai",
+        "Taita",
+        "Embu",
+        "Meru",
+        "Turkana",
+        "Teso",
+        "Ilchamus",
+        "Samburu",
+        "Rendille",
+        "Borana",
+        "Gabra",
+        "Pokot",
+        "Njemps",
+        "Galla",
+        "Ndorobo",
+        "Suba",
+        "Ogiek",
+        "El Molo",
+        "Kuria",
+        "Malakote",
+        "Swahili",
+        "Arabs",
+        "Waat",
+        "Nubians",
+        "Boni",
+        "Giriama",
+        "Digo",
+        "Taveta",
+        "Bajuni",
+        "Orma",
+        "Burji",
+        "Sakuye",
+    ];
+
+    const convertFileToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+    };
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            try {
+                const base64Image = await convertFileToBase64(file);
+                setImage(base64Image);
+            } catch (error) {
+                toast.error("Image upload failed");
+            }
+        }
+    };
+
+    // const handleAudioUpload = async (e) => {
+    //     const file = e.target.files[0];
+    //     if (file) {
+    //         try {
+    //             const base64Audio = await convertFileToBase64(file);
+    //             setAudio(base64Audio);
+    //         } catch (error) {
+    //             toast.error("Audio upload failed");
+    //         }
+    //     }
+    // };
+
+    const handleChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const postData = {
+            ...values,
+            image,
+            // audio,
+            user: user._id,
+        };
+
+        try {
+            const res = await fetch(`${API_BASE}/api/posts`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                body: JSON.stringify(postData),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                toast.success("Post submitted!");
+                navigate("/all-posts");
+            } else {
+                toast.error(data.message || "Failed to submit post");
+            }
+        } catch (error) {
+            toast.error("An error occured while submitting the post");
+            console.error("Submission error:", error);
+        }
+    };
+
+    const handleCancel = () => {
+        setShowConfirm(false);
+        navigate("/homepage");
+    }
+
+    return (
+        <>
+            <Navbar />
+            <div className="add-post-container">
+                <form className="add-post-form" onSubmit={handleSubmit}>
+                    <label>Select a Category</label>
+                    <select name="category" value={values.category} onChange={handleChange} required>
+                        <option value="" disabled>Select a category</option>
+                        {categories.map((cat, index) => (
+                            <option key={index} value={cat}>{cat}</option>
+                        ))}
+                    </select>
+
+                    <label>Select a Community</label>
+                    <select name="community" value={values.community} onChange={handleChange} required>
+                        <option value="" disabled>Select a community</option>
+                        {communities.map((comm, index) => (
+                            <option key={index} value={comm}>{comm}</option>
+                        ))}
+                    </select>
+
+                    <label>Title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        value={values.title}
+                        onChange={handleChange}
+                        required
+                    />
+
+                    <label>Content</label>
+                    <textarea
+                        name="content"
+                        rows="10"
+                        value={values.content}
+                        onChange={handleChange}
+                        required
+                    />
+
+                    <label>Upload Image</label>
+                    <input type="file" accept="image/*" onChange={handleImageUpload} required />
+                    {image && (
+                        <div className="image-preview">
+                            <img src={image} alt="Preview" className="preview-img" />
+                        </div>
+                    )}
+
+                    {/* <label>Upload Audio (optional)</label>
+                    <input type="file" accept="audio/*,video/mp4" onChange={handleAudioUpload} /> */}
+
+                    <label>Author: {user.username}</label>
+
+                    <div className="button-container">
+                        <button type="submit" className="submit-button">Post</button>
+                        <button type="button" className="cancel-button" onClick={() => setShowConfirm(true)}>Cancel</button>
+                    </div>
+                </form>
+
+                {showConfirm && (
+                <ConfirmDialog
+                    message={"Are you sure you want to delete this draft?"}
+                    onConfirm={handleCancel}
+                    onCancel={() => {
+                        setShowConfirm(false);
+                    }}
+                />
+            )}
+            </div>
+        </>
+    );
+}
+
+export default AddPost;
