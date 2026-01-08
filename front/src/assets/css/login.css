@@ -65,3 +65,19 @@
     color: #f0f0f0;
     text-decoration: underline;
 }
+
+.forgot-password {
+    text-align: right;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.forgot-password a {
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+.register-text {
+    text-align: center;
+    margin-top: 10px;
+}
