@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import CommunityLabel from "../components/CommunityLabel";
 import Loader from "../components/Loader";
+import API_BASE from "../utils/api";
 import "../assets/css/CategoryPosts.css";
 
 const CategoryPosts = () => {
@@ -61,7 +62,7 @@ const CategoryPosts = () => {
     useEffect(() => {
         const fetchPostsByCategory = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/posts/category/${encodeURIComponent(decodedCategory)}`);
+                const response = await fetch(`${API_BASE}/api/posts/category/${encodeURIComponent(decodedCategory)}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch posts");
                 }

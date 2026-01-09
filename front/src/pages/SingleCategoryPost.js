@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { FaTrash } from "react-icons/fa";
 import UserContext from "../contexts/UserContext";
 import Navbar from "../components/Navbar";
+import API_BASE from "../utils/api";
 import "../assets/css/SingleCategoryPost.css";
 
 const SingleCategoryPost = () => {
@@ -19,7 +20,7 @@ const SingleCategoryPost = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/api/posts/${postId}`);
+                const res = await fetch(`${API_BASE}/api/posts/${postId}`);
                 if (!res.ok) throw new Error("Post not found");
                 const data = await res.json();
                 setPost(data);
@@ -35,7 +36,7 @@ const SingleCategoryPost = () => {
     const handleLike = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:5000/api/posts/${postId}/like`, {
+            const res = await fetch(`${API_BASE}/api/posts/${postId}/like`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -54,7 +55,7 @@ const SingleCategoryPost = () => {
         if (!newComment.trim()) return;
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:5000/api/posts/${postId}/comment`, {
+            const res = await fetch(`${API_BASE}/api/posts/${postId}/comment`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -76,7 +77,7 @@ const SingleCategoryPost = () => {
     const handleDeleteComment = async (commentId) => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:5000/api/posts/${postId}/comment/${commentId}`, {
+            const res = await fetch(`${API_BASE}/api/posts/${postId}/comment/${commentId}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",

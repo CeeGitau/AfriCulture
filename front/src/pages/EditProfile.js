@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
 import defaultPic from "../assets/images/default-pic.png";
+import API_BASE from "../utils/api";
 import "../assets/css/EditProfile.css";
 
 const EditPost = () => {
@@ -21,7 +22,7 @@ const EditPost = () => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await fetch("http://localhost:5000/api/users/auth", {
+                const res = await fetch(`${API_BASE}/api/users/auth`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -78,7 +79,7 @@ const EditPost = () => {
                 formData.append("confirmNewPassword", confirmNewPassword);
             }
 
-            const res = await fetch(`http://localhost:5000/api/users/me`, {
+            const res = await fetch(`${API_BASE}/api/users/me`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`

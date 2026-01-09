@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
+import API_BASE from "../utils/api";
 import "../assets/css/EditPost.css";
 
 const EditPost = () => {
@@ -16,7 +17,7 @@ const EditPost = () => {
     const fetchPost = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
+        const res = await fetch(`${API_BASE}/api/posts/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

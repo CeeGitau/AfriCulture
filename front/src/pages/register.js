@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import API_BASE from "../utils/api";
 import "../assets/css/register.css";
 
 const Register = () => {
@@ -17,7 +18,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/users/register", {
+      const res = await fetch(`${API_BASE}/api/users/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

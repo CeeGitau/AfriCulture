@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
 import CommunityLabel from "../components/CommunityLabel";
 import Loader from "../components/Loader";
+import API_BASE from "../utils/api";
 import "../assets/css/Posts.css";
 
 const Posts = () => {
@@ -59,7 +60,7 @@ const Posts = () => {
     useEffect(() => {
         const fetchAllPosts = async () => {
             try {
-                const res = await fetch("http://localhost:5000/api/posts/all-posts");
+                const res = await fetch(`${API_BASE}/api/posts/all-posts`);
                 if (!res.ok) {
                     throw new Error("Failed to fetch all posts");
                 }

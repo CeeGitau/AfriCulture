@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import Loader from "../components/Loader";
 import ConfirmDialog from "../components/ConfirmDialog";
 import defaultPic from "../assets/images/default-pic.png";
+import API_BASE from "../utils/api";
 import "../assets/css/profile.css";
 
 const Profile = () => {
@@ -23,7 +24,7 @@ const Profile = () => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await fetch("http://localhost:5000/api/users/auth", {
+                const res = await fetch(`${API_BASE}/api/users/auth`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -45,7 +46,7 @@ const Profile = () => {
 
         const fetchUserPosts = async (userId) => {
             try {
-                const res = await fetch(`http://localhost:5000/api/posts/user/${userId}`);
+                const res = await fetch(`${API_BASE}/api/posts/user/${userId}`);
                 const data = await res.json();
                 if (res.ok) {
                     setMyPosts(data);
@@ -67,7 +68,7 @@ const Profile = () => {
     const handleDelete = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:5000/api/posts/${selectedPostId}`, {
+            const res = await fetch(`${API_BASE}/api/posts/${selectedPostId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -98,7 +99,7 @@ const Profile = () => {
                 <div className="profile-meta-content">
                     <img
                         className="profile-pic"
-                        src={profile.profilePicture ? `http://localhost:5000${profile.profilePicture}` : defaultPic}
+                        src={profile.profilePicture ? `${API_BASE}${profile.profilePicture}` : defaultPic}
                         onError={(e) => { e.target.src = defaultPic; }}
                         alt="Profile"
                     />
