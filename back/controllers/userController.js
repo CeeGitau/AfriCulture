@@ -77,7 +77,7 @@ const ForgotPassword = async (req, res) => {
     await user.save();
 
     // In production, send email instead
-    res.json({ message: "Rest token generated", token });
+    res.json({ message: "Reset token generated", token });
 
   } catch (error) {
     res.status(500).json({ message: "Server error" });
