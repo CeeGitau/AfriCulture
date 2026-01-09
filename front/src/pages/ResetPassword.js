@@ -1,10 +1,18 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import API_BASE from "../utils/api";
 import "../assets/css/ResetPassword.css";
 
 const ResetPassword = () => {
-    const [formData, setFormData] = useState({ token: "", newPassword: "" });
+    const location = useLocation();
+    const navigate = useNavigate();
+    const prefilledToken = location.state?.token || "";
+
+    const [formData, setFormData] = useState({ 
+        token: prefilledToken, // during production, user will fill token that was sent via email (no prefilled token)
+        newPassword: "" 
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,6 +29,7 @@ const ResetPassword = () => {
             const data = await res.json();
             if (res.ok) {
                 toast.success(data.message);
+                navigate("/login");
             } else {
                 toast.error(data.message);
             }

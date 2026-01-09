@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import API_BASE from "../utils/api";
 import "../assets/css/ForgotPassword.css";
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,8 +22,10 @@ const ForgotPassword = () => {
 
             const data = await res.json();
             if (res.ok) {
-                toast.success(`Reset token generated! Token: ${data.token}`);
+                toast.success("Reset token generated!");
+                
                 // In production, I would email the token
+                navigate("/reset-password", { state: { token: data.token } });
             } else {
                 toast.error(data.message);
             }
