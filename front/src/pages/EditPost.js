@@ -44,7 +44,7 @@ const EditPost = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
+      const res = await fetch(`${API_BASE}/api/posts/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
