@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import UserContext from "../contexts/UserContext";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Navbar from "../components/Navbar";
@@ -11,14 +10,12 @@ import API_BASE from "../utils/api";
 import "../assets/css/profile.css";
 
 const Profile = () => {
-    const { user } = useContext(UserContext);
     const [profile, setProfile] = useState(null);
     const [myPosts, setMyPosts] = useState([]);
     const [showConfirm, setShowConfirm] = useState(false);
     const [selectedPostId, setSelectedPostId] = useState(null);
     const [selectedPostTitle, setSelectedPostTitle] = useState(null);
     const [loadingPosts, setLoadingPosts] = useState(true);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProfile = async () => {
