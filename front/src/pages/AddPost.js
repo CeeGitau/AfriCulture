@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import UserContext from "../contexts/UserContext";
 import ConfirmDialog from "../components/ConfirmDialog.js";
 import Navbar from "../components/Navbar";
-import API_BASE from "../utils/api.js";
 import "../assets/css/AddPost.css";
 
 const AddPost = () => {
@@ -128,7 +127,7 @@ const AddPost = () => {
         };
 
         try {
-            const res = await fetch(`${API_BASE}/api/posts`, {
+            const res = await fetch("/api/posts", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import UserContext from "../contexts/UserContext";
-import API_BASE from "../utils/api";
 import "../assets/css/login.css";
 
 const Login = () => {
@@ -18,7 +17,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const res = await fetch(`${API_BASE}/api/users/login`, {
+            const res = await fetch("/api/users/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),

@@ -40,4 +40,13 @@ const connectDB = async () => {
 
 connectDB();
 
+// --- LOCAL DEVELOPMENT ONLY ---
+// Start server only in dev (for proxying from React)
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
 module.exports = app;
