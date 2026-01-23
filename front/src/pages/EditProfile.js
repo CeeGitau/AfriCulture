@@ -33,7 +33,7 @@ const EditPost = () => {
                     setPreview(data.user.profilePicture
                         ? (data.user.profilePicture.startsWith("http")
                             ? data.user.profilePicture
-                            : `http://localhost:5000${data.user.profilePicture}`)
+                            : `${API_BASE}${data.user.profilePicture}`)
                         : defaultPic
                     );
                 }
