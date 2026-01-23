@@ -1,5 +1,12 @@
 const express = require('express'); 
-const { Login, Register, Auth, UpdateProfile, ForgotPassword, ResetPassword } = require('../controllers/userController.js');
+const { 
+    Login, 
+    Register, 
+    Auth, 
+    UpdateProfile, 
+    ForgotPassword, 
+    ResetPassword 
+} = require('../controllers/userController.js');
 const VerifyToken = require('../middleware/verifyToken.js');
 const upload = require('../middleware/uploadMiddleware.js');
 

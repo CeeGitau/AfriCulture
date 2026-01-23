@@ -1,65 +1,65 @@
-const User = require('../models/User'); 
+const User = require('../models/User');
 const crypto = require('crypto');
-const bcrypt = require('bcryptjs'); 
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET; 
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const Register = async (req, res) => {
-    const { username, email, password } = req.body;
+  const { username, email, password } = req.body;
 
-    try {
-        const existingUser = await User.findOne({ email });
-        if (existingUser) return res.status(400).json({ message: 'User already exists' });
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = new User({ username, email, password: hashedPassword });
-        await newUser.save();
+    const newUser = new User({ username, email, password: hashedPassword });
+    await newUser.save();
 
-        res.status(201).json({ message: 'Registration successful' });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
-    }
+    res.status(201).json({ message: 'Registration successful' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
 };
 
 const Login = async (req, res) => {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    try {
-        const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: 'User does not exist' });
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: 'User does not exist' });
 
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '3d' });
 
-        res.status(200).json({
-            message: 'Login successful',
-            token,
-            user: {
-                _id: user._id,
-                username: user.username,
-                email: user.email,
-                profilePicture: user.profilePicture
-            }
-        });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
-    }
+    res.status(200).json({
+      message: 'Login successful',
+      token,
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        profilePicture: user.profilePicture
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
 };
 
 const Auth = async (req, res) => {
-    try {
-        const user = await User.findById(req.user.id).select('-password'); // fetch full user and exclude password
+  try {
+    const user = await User.findById(req.user.id).select('-password'); // fetch full user and exclude password
 
-        if (!user) return res.status(401).json({ message: "Unauthorized" });
+    if (!user) return res.status(401).json({ message: "Unauthorized" });
 
-        return res.status(200).json({ success: true, user });
-    } catch (error) {
-        return res.status(500).json({ success: false, message: "Server error" });
-    }
+    return res.status(200).json({ success: true, user });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "Server error" });
+  }
 };
 
 const ForgotPassword = async (req, res) => {
@@ -67,7 +67,7 @@ const ForgotPassword = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ message: "User not found"});
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     // Generate token 
     const token = crypto.randomBytes(20).toString("hex");
@@ -93,7 +93,7 @@ const ResetPassword = async (req, res) => {
       resetPasswordExpires: { $gt: Date.now() },
     });
 
-    if (!user) return res.status(400).json({ message: "Invalid or expired token "});
+    if (!user) return res.status(400).json({ message: "Invalid or expired token " });
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(newPassword, salt);
@@ -130,7 +130,7 @@ const UpdateProfile = async (req, res) => {
 
     // Update profile picture (optional)
     if (req.file) {
-      user.profilePicture = `/uploads/${req.file.filename}`;
+      user.profilePicture = req.file.path; // Cloudinary URL
     }
 
     // Password change (if any password field is present, require all)
@@ -182,10 +182,10 @@ const UpdateProfile = async (req, res) => {
 };
 
 module.exports = {
-    Register,
-    Login,
-    Auth,
-    ForgotPassword,
-    ResetPassword,
-    UpdateProfile
+  Register,
+  Login,
+  Auth,
+  ForgotPassword,
+  ResetPassword,
+  UpdateProfile
 };
