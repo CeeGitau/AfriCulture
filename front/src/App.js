@@ -20,6 +20,7 @@ import SinglePost from "./pages/SinglePost";
 import CategoryPosts from "./pages/CategoryPosts";
 import SingleCategoryPost from "./pages/SingleCategoryPost";
 import UserContext from "./contexts/UserContext";
+import API_BASE from "./utils/api";
 
 const router = createBrowserRouter([
   { path: '/', element: <Landing /> },
@@ -53,7 +54,7 @@ function App() {
     }
 
     if (token) {
-      fetch("http://localhost:5000/api/auth", {
+      fetch(`${API_BASE}/api/users/auth`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`
